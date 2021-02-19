@@ -7,7 +7,7 @@
 		* Author: Karisma Putra Purwanto, S.Kom
 	*/
 	/*---------------- Web Mode ----------------*/
-	$site_mode 			=	'live'; // 
+	$site_mode 			=	'prod'; // 
 	/*---------------- TimeZone ----------------*/
 	date_default_timezone_set('Asia/Jakarta');
 	/*---------------- Site Config ----------------*/
