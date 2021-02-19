@@ -16,13 +16,6 @@ $(document).ready(function() {
             username: "Wajib di Isi",
             password: "Wajib di Isi"
         },
-        highlight: function(e) {
-            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-        },
-        success: function(e) {
-            $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
-            $(e).remove();
-        },
         submitHandler: function(form, event) {
             event.preventDefault();
             var formData = new FormData(form);
@@ -52,13 +45,6 @@ $(document).ready(function() {
             Username: "Wajib di Isi",
             Password: "Wajib di Isi",
             NoTelp: "Wajib di Isi"
-        },
-        highlight: function(e) {
-            $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-        },
-        success: function(e) {
-            $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
-            $(e).remove();
         },
         submitHandler: function(form, event) {
             event.preventDefault();
