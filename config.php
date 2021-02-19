@@ -38,8 +38,8 @@
 		include $inc_folder . 'live-dbold.php';
 	} else if ($site_mode == 'prod') {
 		define('db', dirname(__FILE__));
-		include $inc_folder . 'db.php';
-		include $inc_folder . 'dbold.php';
+		include $inc_folder . 'prod-db.php';
+		include $inc_folder . 'prod-dbold.php';
 	}
 	include $inc_folder . 'function.php';
 	foreach(glob($class_module) as $file) 
