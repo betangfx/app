@@ -9,7 +9,7 @@
 	/*---------------- Web Mode ----------------*/
 	$site_mode 			=	'prod'; // 
 	/*---------------- TimeZone ----------------*/
-	date_default_timezone_set('Asia/Jakarta');
+	//date_default_timezone_set('Asia/Jakarta');
 	/*---------------- Site Config ----------------*/
 	if ($site_mode == 'live') {
 		$site_url			= "https://app.betangfx.com";	
