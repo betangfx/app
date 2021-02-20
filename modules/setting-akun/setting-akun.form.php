@@ -4,7 +4,7 @@
 	$id			= isset($_POST['ID']) 		? $_POST['ID'] 		: NULL;
 	$modul 		= isset($_POST['modul']) 	? $_POST['modul'] 	: NULL;
 	$submodul	= isset($_POST['submodul']) ? $_POST['submodul']: NULL;
-	$userid		= isset($_POST['UserID']) 	? $_POST['UserID'] 	: NULL;
+	$UserID		= isset($_POST['UserID']) 	? $_POST['UserID'] 	: NULL;
 	
 	//pre
 	if ($modul == 'tambah_setting-akun' && $submodul == 'infoakun') {
@@ -15,7 +15,7 @@
 	}
 	if (($modul == 'ubah_setting-akun' && $submodul == 'infoakun') || ($modul == 'hapus_setting-akun' && $submodul == 'infoakun')) {
 		$infoAkun = new settingAkun();
-		foreach ($infoAkun->infoAkun('read','akunid','brokerid','noakun', 'leverage',$userid) as $row) {
+		foreach ($infoAkun->infoAkun('read','akunid','brokerid','noakun', 'leverage',$UserID) as $row) {
 			$AkunID		=	$row['AkunID'];
 			$BrokerID	=	$row['BrokerID'];
 			$NoAkun		=	$row['NoAkun'];
@@ -30,7 +30,7 @@
 	}
 	if (($modul == 'ubah_setting-akun' && $submodul == 'transaksi') || ($modul == 'hapus_setting-akun' && $submodul == 'transaksi')) {
 		$infoTransaksi = new settingAkun();
-		foreach ($infoTransaksi->infoTransaksi('read','', '', '', '', '', $userid) as $row) {
+		foreach ($infoTransaksi->infoTransaksi('read','', '', '', '', '', $UserID) as $row) {
 		$AkunID			= $row['AkunID'];
 		$TransaksiID	= $row['TransaksiID'];
 		$NominalID		= $row['Nominal'];
@@ -54,7 +54,7 @@
 						<input type="hidden" class="form-control" id="submodul" name="submodul" value="<?php echo $submodul;?>">
 					</div>
 					<div class="input-group">
-						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $userid;?>">
+						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $UserID;?>">
 					</div>
 				</div>
 			</div>
@@ -117,7 +117,7 @@
 						<input type="hidden" class="form-control" id="submodul" name="submodul" value="<?php echo $submodul;?>">
 					</div>
 					<div class="input-group">
-						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $userid;?>">
+						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $UserID;?>">
 					</div>
 				</div>
 			</div>
@@ -185,7 +185,7 @@
 						<input type="hidden" class="form-control" id="submodul" name="submodul" value="<?php echo $submodul;?>">
 					</div>
 					<div class="input-group">
-						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $userid;?>">
+						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $UserID;?>">
 					</div>
 				</div>
 			</div>
@@ -216,7 +216,7 @@
 						<input type="hidden" class="form-control" id="submodul" name="submodul" value="<?php echo $submodul;?>">
 					</div>
 					<div class="input-group">
-						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $userid;?>">
+						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $UserID;?>">
 					</div>
 				</div>
 			</div>

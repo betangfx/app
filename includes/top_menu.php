@@ -84,7 +84,7 @@
 				</a>
 				
 				<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-					<img src="<?php echo $site_url;?>/images/avatars/user-login.jpg" class="avatar img-fluid rounded-circle mr-1" alt="<?php echo $username;?>"> <span class="text-dark"><?php echo $username;?></span>
+					<img src="<?php echo $site_url;?>/images/avatars/user-login.jpg" class="avatar img-fluid rounded-circle mr-1" alt="<?php echo $Username;?>"> <span class="text-dark"><?php echo $Username;?></span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right">
 					<a class="dropdown-item" href="#"><i class="align-middle mr-1" data-feather="user"></i> Profile</a>

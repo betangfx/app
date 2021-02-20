@@ -1,25 +1,25 @@
 <ul class="sidebar-nav">
     <?php 
-		include 'function_menu.php';
-		$GroupModulList 	= getGroupModul();
-		$UserModulIDList 	= getUserModulIDList($usergroup);
+		$left_menu = new left_menu();
+		$GroupMenuList 		= $left_menu->getgroupmenu();
+		$UserMenuIDList 	= $left_menu->getusermenuList($UserLevel);
 		
-		foreach ($GroupModulList as $row) {
-			$GroupModulID = $row['GroupModulID'];
-			$GroupModul = $row['GroupModul'];
+		foreach ($GroupMenuList as $row) {
+			$GroupMenuID 	= $row['GroupModulID'];
+			$GroupMenu 		= $row['GroupModul'];
 		?>
 		<li class="sidebar-header">
-			<?php echo $GroupModul;?>
+			<?php echo $GroupMenu;?>
 		</li>
 		<?php
-			foreach (getUserModul($GroupModulID, $UserModulIDList) as $row) {
-				$ModulID = $row['ModulID'];
-				$Modul = $row['Modul'];
-				$Link = $row['Link'];
+			foreach ($left_menu->getusermenu($GroupMenuID, $UserMenuIDList) as $row) {
+				$MenuID 	= $row['ModulID'];
+				$Menu 		= $row['Modul'];
+				$Link 		= $row['Link'];
 			?>
 			<li class="sidebar-item">
 				<a href="<?php echo $Link;?>" class="sidebar-link">
-					<i class="align-middle" data-feather="layout"></i> <span class="align-middle"><?php echo $Modul;?></span>
+					<i class="align-middle" data-feather="layout"></i> <span class="align-middle"><?php echo $Menu;?></span>
 				</a>
 			</li>
 			<?php 
@@ -33,7 +33,7 @@
         <img class="rounded-circle mr-3" src="<?php echo $site_url;?>/images/avatars/user-login.jpg" alt="Chris Wood"
 		width="40" height="40">
         <div class="media-body">
-            <h5 class="mb-1"><?php echo $username;?></h5>
+            <h5 class="mb-1"><?php echo $Username;?></h5>
             <div>
                 <i class="fas fa-circle text-success"></i> Online
 			</div>

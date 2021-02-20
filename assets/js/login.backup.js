@@ -12,7 +12,7 @@ jQuery(function($) {
                 focusInvalid: true,
                 rules: {
 
-                    username: {
+                    Username: {
                         required: true
                     },
                     password: {
@@ -20,7 +20,7 @@ jQuery(function($) {
                     }
                 },
                 messages: {
-                    username: "Mohon isi Username anda",
+                    Username: "Mohon isi Username anda",
                     password: "Mohon isi Password anda"
                 },
                 highlight: function (e) {

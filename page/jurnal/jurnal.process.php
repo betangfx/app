@@ -1,7 +1,7 @@
 <?php
 	include ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbold.php');
 	$modul 			= isset($_POST['modul']) ? $_POST['modul'] : NULL;
-	$userid			= isset($_POST['UserID']) ? $_POST['UserID']: NULL;
+	$UserID			= isset($_POST['UserID']) ? $_POST['UserID']: NULL;
 	$JurnalID		= isset($_POST['JurnalID']) ? $_POST['JurnalID']: NULL;
 	if ($modul == 'tambah_jurnal' || $modul == 'ubah_jurnal') {
 		$Jurnal 		= $_POST['Jurnal'];
@@ -41,7 +41,7 @@
 							HargaMasuk='$HargaMasuk', BatasRugi='$BatasRugi', AmbilUntung='$AmbilUntung', SaldoAwal='$SaldoAwal', Resiko='$Resiko', Lot='$Lot', WaktuKeluar='$WaktuKeluar', AlasanKeluar='$AlasanKeluar',
 							HargaKeluar='$HargaKeluar', RugiPoint='$RugiPoint', UntungPoint='$UntungPoint', Kerugian='$RugiSaldo', Keuntungan='$UntungSaldo', Rasio='$Rasio', SaldoAkhir='$SaldoAkhir',
 							CatatanSebelum='$CatatanSebelum', CatatanSesudah='$CatatanSesudah', Sebelum='$Sebelum', Sesudah='$Sesudah', StatusID='$Status'
-		WHERE JurnalID='$Jurnal' AND UserID='$userid'";
+		WHERE JurnalID='$Jurnal' AND UserID='$UserID'";
 		$insert		= mysqli_query($koneksi, $query);
 		if($insert) {
 			echo 'sukses_ubah_data';
@@ -50,7 +50,7 @@
 		}
 	}
 	if ($modul == 'hapus_jurnal') {
-		$query 		=	"DELETE FROM jurnal WHERE JurnalID='$JurnalID' AND UserID='$userid'";
+		$query 		=	"DELETE FROM jurnal WHERE JurnalID='$JurnalID' AND UserID='$UserID'";
 		$delete		= mysqli_query($koneksi, $query);
 		if($delete) {
 			echo 'sukses_ubah_data';

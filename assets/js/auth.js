@@ -5,7 +5,7 @@ $(document).ready(function() {
         focusInvalid: true,
         rules: {
 
-            username: {
+            Username: {
                 required: true
             },
             password: {
@@ -13,7 +13,7 @@ $(document).ready(function() {
             }
         },
         messages: {
-            username: "Wajib di Isi",
+            Username: "Wajib di Isi",
             password: "Wajib di Isi"
         },
         submitHandler: function(form, event) {

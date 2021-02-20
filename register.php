@@ -32,7 +32,7 @@
         /* Warna Line */
         --Kontak-WA-uname: "6282237540250";
         /* Nomor WhatsApp */
-        --Kontak-WA-text: "Hallo admin,%20mohon%20aktivasi%20*username: *%20";
+        --Kontak-WA-text: "Hallo admin,%20mohon%20aktivasi%20*Username: *%20";
         /* Pesan WhatsApp */
         --Kontak-Tele-uname: "KarismaTM";
         /* Username Telegram */
@@ -221,7 +221,7 @@
                                         <a href="index.php">Klik Disini. Untuk mencoba aplikasi</a>
                                     </big>
                                     </br>
-                                    username: demo<br />
+                                    Username: demo<br />
                                     password: demo<br />
                                 </div>
                             </div>

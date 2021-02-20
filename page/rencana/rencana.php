@@ -2,7 +2,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<button class="btn btn-primary float-right" href="" data-target="#globalModal" data-toggle="modal" data-id="New" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="tambah" data-folder="rencana" data-page="rencana" data-header="Rencana" alt="Buat Rencana" title="Buat Rencana" data-backdrop="static">Buat Rencana</button>
+				<button class="btn btn-primary float-right" href="" data-target="#globalModal" data-toggle="modal" data-id="New" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="tambah" data-folder="rencana" data-page="rencana" data-header="Rencana" alt="Buat Rencana" title="Buat Rencana" data-backdrop="static">Buat Rencana</button>
 				<h1 class="card-title">Daftar Rencana</h1>
 			</div>
 			<div class="card-body">
@@ -27,7 +27,7 @@
 																LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
 																LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 																LEFT JOIN status e ON a.StatusID = e.StatusID
-																WHERE a.UserID = '$userid' ORDER BY a.TglBuat DESC");
+																WHERE a.UserID = '$UserID' ORDER BY a.TglBuat DESC");
 							while ($drencana = mysqli_fetch_array($qrencana,MYSQLI_ASSOC)) {
 								$RencanaID		=	$drencana['RencanaID'];
 								$RencanaAksi	=	$drencana['RencanaAksi'];
@@ -54,9 +54,9 @@
 								?>
 							</td>
 							<td>
-												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $RencanaID;?>" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="lihat" data-folder="rencana" data-page="rencana" data-header="Rencana" alt="Lihat Rencana" title="Lihat Rencana" data-backdrop="static"><i class="align-middle" data-feather="zoom-in"></i></a>
-												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $RencanaID;?>" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="ubah" data-folder="rencana" data-page="rencana" data-header="Rencana" alt="Ubah Rencana" title="Ubah Rencana" data-backdrop="static"><i class="align-middle" data-feather="edit-3"></i></a>
-												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $RencanaID;?>" data-userid="<?php echo $userid;?>"  data-size="sm" data-action="hapus" data-folder="rencana" data-page="rencana" data-header="Rencana" alt="Hapus Rencana" title="Hapus Rencana" data-backdrop="static"><i class="align-middle" data-feather="trash"></i></a>
+												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $RencanaID;?>" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="lihat" data-folder="rencana" data-page="rencana" data-header="Rencana" alt="Lihat Rencana" title="Lihat Rencana" data-backdrop="static"><i class="align-middle" data-feather="zoom-in"></i></a>
+												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $RencanaID;?>" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="ubah" data-folder="rencana" data-page="rencana" data-header="Rencana" alt="Ubah Rencana" title="Ubah Rencana" data-backdrop="static"><i class="align-middle" data-feather="edit-3"></i></a>
+												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $RencanaID;?>" data-UserID="<?php echo $UserID;?>"  data-size="sm" data-action="hapus" data-folder="rencana" data-page="rencana" data-header="Rencana" alt="Hapus Rencana" title="Hapus Rencana" data-backdrop="static"><i class="align-middle" data-feather="trash"></i></a>
 												</td>
 						</tr>
 						<?php

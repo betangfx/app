@@ -7,12 +7,12 @@
 	class database {
 		
 		var $host = 'localhost';
-		var $username = 'root';
+		var $Username = 'root';
 		var $password = '';
 		var $database = 'tms';
 		var $koneksi = '';
 		function __construct(){
-			$this->koneksi = mysqli_connect($this->host, $this->username, $this->password,$this->database);
+			$this->koneksi = mysqli_connect($this->host, $this->Username, $this->password,$this->database);
 			if (mysqli_connect_errno()){
 				echo 'Koneksi database gagal! Pesan Error: ' . mysqli_connect_error();
 			}

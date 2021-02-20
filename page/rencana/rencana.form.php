@@ -3,10 +3,10 @@
 	require_once ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 	$modul 		= isset($_POST['modul']) ? $_POST['modul'] : NULL;
 	$id			= isset($_POST['ID']) ? $_POST['ID'] : NULL;
-	$userid		= isset($_POST['UserID']) ? $_POST['UserID'] : NULL;
+	$UserID		= isset($_POST['UserID']) ? $_POST['UserID'] : NULL;
 	
 	if ($modul == 'tambah_rencana') {
-		$NoRencana = NoRencana($id, $userid);
+		$NoRencana = NoRencana($id, $UserID);
 		$DRAnalisaID = '';
 		$DRPasar = '';
 		$DRPasarID = '';
@@ -22,7 +22,7 @@
 		$DRRugiPoint = '';
 		$DRUntungPoint = '';
 		$CekSaldo = new settingAkun();
-		foreach ($CekSaldo->cekSaldoAkun($userid) as $row) {
+		foreach ($CekSaldo->cekSaldoAkun($UserID) as $row) {
 			$saldoAkun = $row['SaldoAkhir'];
 			}
 		$DRSaldo = $saldoAkun;
@@ -49,7 +49,7 @@
 		LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 		LEFT JOIN rencana_tipe e ON a.RencanaTipeID = e.RencanaTipeID
 		LEFT JOIN rencana_aksi f ON a.RencanaAksiID = f.RencanaAksiID
-		WHERE a.RencanaID = '$id' AND a.UserID='$userid'
+		WHERE a.RencanaID = '$id' AND a.UserID='$UserID'
 		");
 		while ($drencana = mysqli_fetch_array($qrencana,MYSQLI_ASSOC)) {
 			$NoRencana 			= $drencana['RencanaID'];
@@ -95,7 +95,7 @@
 							<span class="input-group-text">@</span>
 						</div>
 						<input type="hidden" id="modul" name="modul" value="<?php echo $modul;?>">
-						<input type="hidden" id="UserID" name="UserID" value="<?php echo $userid;?>" readonly>
+						<input type="hidden" id="UserID" name="UserID" value="<?php echo $UserID;?>" readonly>
 						<input type="text" class="form-control" id="RencanaID" name="Rencana" value="<?php echo $NoRencana;?>" readonly>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 						<option value="">Analisa No...</option>
 						<option value="">Tanpa Analisa</option>
 						<?php
-							$qsanalisa = mysqli_query($koneksi,"SELECT * FROM analisa WHERE UserID='$userid' AND StatusID='1' ORDER BY AnalisaID DESC");
+							$qsanalisa = mysqli_query($koneksi,"SELECT * FROM analisa WHERE UserID='$UserID' AND StatusID='1' ORDER BY AnalisaID DESC");
 							while ($dsanalisa = mysqli_fetch_array($qsanalisa,MYSQLI_ASSOC)) {
 								$DSAnalisaID	=	$dsanalisa['AnalisaID'];
 							?>
@@ -389,7 +389,7 @@
 						<input type="hidden" id="modul" name="modul" value="<?php echo $modul;?>">
 					</div>
 					<div class="input-group">
-						<input type="hidden" id="UserID" name="UserID" value="<?php echo $userid;?>">
+						<input type="hidden" id="UserID" name="UserID" value="<?php echo $UserID;?>">
 					</div>
 					<div class="input-group">
 						<input type="hidden" id="RencanaID" name="RencanaID" value="<?php echo $id;?>">

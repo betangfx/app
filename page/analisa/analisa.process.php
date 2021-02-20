@@ -1,7 +1,7 @@
 <?php
 	include ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbold.php');
 	$modul 			= isset($_POST['modul']) ? $_POST['modul'] : NULL;
-	$userid			= isset($_POST['UserID']) ? $_POST['UserID']: NULL;
+	$UserID			= isset($_POST['UserID']) ? $_POST['UserID']: NULL;
 	$AnalisaID		= isset($_POST['AnalisaID']) ? $_POST['AnalisaID']: NULL;
 	if ($modul == 'tambah_analisa' || $modul == 'ubah_analisa') {
 		$Pasar			= $_POST['Pasar'];
@@ -24,7 +24,7 @@
 		$Status			= $_POST['Status'];
 		$query 		=	"
 		UPDATE analisa SET Pasar='$Pasar', Symbol='$Symbol', JangkaWaktu='$JangkaWaktu', Arah='$Arah', Rangkaian='$Rangkaian', Struktur='$Struktur', Tipe='$Tipe', Pola='$Pola', Posisi='$Posisi', Derajat='$Derajat', Aturan='$Aturan', Nilai='$NilaiSesuai', CatatanSebelum='$CatatanSebelum', CatatanSesudah='$CatatanSesudah', Sebelum='$Sebelum', Sesudah='$Sesudah', StatusID='$Status'
-		WHERE AnalisaID='$AnalisaID' AND UserID='$userid'";
+		WHERE AnalisaID='$AnalisaID' AND UserID='$UserID'";
 		$insert		= mysqli_query($koneksi, $query);
 		if($insert) {
 			echo 'sukses_ubah_data';
@@ -33,7 +33,7 @@
 		}
 	}
 	if ($modul == 'hapus_analisa') {
-		$query 		=	"DELETE FROM analisa WHERE AnalisaID='$AnalisaID' AND UserID='$userid'";
+		$query 		=	"DELETE FROM analisa WHERE AnalisaID='$AnalisaID' AND UserID='$UserID'";
 		$delete		= mysqli_query($koneksi, $query);
 		if($delete) {
 			echo 'sukses_ubah_data';

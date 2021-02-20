@@ -2,7 +2,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<button class="btn btn-primary float-right" href="" data-target="#globalModal" data-toggle="modal" data-id="New" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="tambah" data-folder="analisa" data-page="analisa" data-header="Analisa" alt="Buat Analisa" title="Buat Analisa" data-backdrop="static">Buat Analisa</button>
+				<button class="btn btn-primary float-right" href="" data-target="#globalModal" data-toggle="modal" data-id="New" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="tambah" data-folder="analisa" data-page="analisa" data-header="Analisa" alt="Buat Analisa" title="Buat Analisa" data-backdrop="static">Buat Analisa</button>
 				<h1 class="card-title">Daftar Analisa</h1>
 			</div>
 			<div class="card-body">
@@ -32,7 +32,7 @@
 																LEFT JOIN wave_posisi f ON a.Posisi = f.PosisiID
 																LEFT JOIN status g ON a.StatusID = g.StatusID
 																LEFT JOIN symbol h ON a.Symbol = h.SymbolID
-																WHERE a.UserID = '$userid' ORDER BY a.TglBuat DESC");
+																WHERE a.UserID = '$UserID' ORDER BY a.TglBuat DESC");
 							while ($danalisa = mysqli_fetch_array($qanalisa,MYSQLI_ASSOC)) {
 								$AnalisaID		=	$danalisa['AnalisaID'];
 								$Symbol			=	$danalisa['Symbol'];
@@ -63,9 +63,9 @@
 								?>
 							</td>
 							<td>
-												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $AnalisaID;?>" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="lihat" data-folder="analisa" data-page="analisa" data-header="Analisa" alt="Lihat Analisa" title="Lihat Analisa" data-backdrop="static"><i class="align-middle" data-feather="zoom-in"></i></a>
-												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $AnalisaID;?>" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="ubah" data-folder="analisa" data-page="analisa" data-header="Analisa" alt="Ubah Analisa" title="Ubah Analisa" data-backdrop="static"><i class="align-middle" data-feather="edit-3"></i></a>
-												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $AnalisaID;?>" data-userid="<?php echo $userid;?>"  data-size="sm" data-action="hapus" data-folder="analisa" data-page="analisa" data-header="Analisa" alt="Hapus Analisa" title="Hapus Analisa" data-backdrop="static"><i class="align-middle" data-feather="trash"></i></a>
+												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $AnalisaID;?>" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="lihat" data-folder="analisa" data-page="analisa" data-header="Analisa" alt="Lihat Analisa" title="Lihat Analisa" data-backdrop="static"><i class="align-middle" data-feather="zoom-in"></i></a>
+												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $AnalisaID;?>" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="ubah" data-folder="analisa" data-page="analisa" data-header="Analisa" alt="Ubah Analisa" title="Ubah Analisa" data-backdrop="static"><i class="align-middle" data-feather="edit-3"></i></a>
+												<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $AnalisaID;?>" data-UserID="<?php echo $UserID;?>"  data-size="sm" data-action="hapus" data-folder="analisa" data-page="analisa" data-header="Analisa" alt="Hapus Analisa" title="Hapus Analisa" data-backdrop="static"><i class="align-middle" data-feather="trash"></i></a>
 												</td>
 						</tr>
 						<?php

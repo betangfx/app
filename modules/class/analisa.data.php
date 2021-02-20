@@ -1,4 +1,147 @@
 <?php
+	class sub_analisa {
+		function tab ($ModuleID) {
+			$this->db = new database();
+			$conn = $this->db->koneksi;
+			$hasil = array();
+			$sql = "SELECT * FROM app_modul_sub";
+			$query = mysqli_query($conn, $sql);
+			while($result = mysqli_fetch_array($query,MYSQLI_ASSOC))
+			{
+				$hasil[] = $result;
+				
+			}
+			return $hasil;
+		}
+	}
+
+	class analisa_data {
+		function analisa_simple($AnalisaID, $UserID) {
+			$this->db = new database();
+			$conn = $this->db->koneksi;
+			$hasil = array();
+			if (!empty($AnalisaID)) {
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_simple a
+						LEFT JOIN pasar b ON a.PasarID = b.PasarID
+						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
+						LEFT JOIN arah e ON a.ArahID = e.ArahID
+						LEFT JOIN status f ON a.StatusID = f.StatusID
+						WHERE a.AnalisaID = '$AnalisaID' AND a.UserBuat = '$UserID'";
+			} else {
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_simple a
+						LEFT JOIN pasar b ON a.PasarID = b.PasarID
+						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
+						LEFT JOIN arah e ON a.ArahID = e.ArahID
+						LEFT JOIN status f ON a.StatusID = f.StatusID
+						WHERE a.UserBuat = '$UserID'";
+			}
+			$query = mysqli_query($conn, $sql);
+			while($result = mysqli_fetch_array($query,MYSQLI_ASSOC))
+			{
+				$hasil[] = $result;
+				
+			}
+			return $hasil;
+		}
+
+		function analisa_snd($AnalisaID, $UserID) {
+			$this->db = new database();
+			$conn = $this->db->koneksi;
+			$hasil = array();
+			if (!empty($AnalisaID)) {
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snd a
+						LEFT JOIN pasar b ON a.PasarID = b.PasarID
+						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
+						LEFT JOIN arah e ON a.ArahID = e.ArahID
+						LEFT JOIN status f ON a.StatusID = f.StatusID
+						WHERE a.AnalisaID = '$AnalisaID' AND a.UserBuat = '$UserID'";
+			} else {
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snd a
+						LEFT JOIN pasar b ON a.PasarID = b.PasarID
+						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
+						LEFT JOIN arah e ON a.ArahID = e.ArahID
+						LEFT JOIN status f ON a.StatusID = f.StatusID
+						WHERE a.UserBuat = '$UserID'";
+			}
+			$query = mysqli_query($conn, $sql);
+			while($result = mysqli_fetch_array($query,MYSQLI_ASSOC))
+			{
+				$hasil[] = $result;
+				
+			}
+			return $hasil;
+		}
+
+		function analisa_snr($AnalisaID, $UserID) {
+			$this->db = new database();
+			$conn = $this->db->koneksi;
+			$hasil = array();
+			if (!empty($AnalisaID)) {
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snr a
+						LEFT JOIN pasar b ON a.PasarID = b.PasarID
+						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
+						LEFT JOIN arah e ON a.ArahID = e.ArahID
+						LEFT JOIN status f ON a.StatusID = f.StatusID
+						WHERE a.AnalisaID = '$AnalisaID' AND a.UserBuat = '$UserID'";
+			} else {
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snr a
+						LEFT JOIN pasar b ON a.PasarID = b.PasarID
+						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
+						LEFT JOIN arah e ON a.ArahID = e.ArahID
+						LEFT JOIN status f ON a.StatusID = f.StatusID
+						WHERE a.UserBuat = '$UserID'";
+			}
+			$query = mysqli_query($conn, $sql);
+			while($result = mysqli_fetch_array($query,MYSQLI_ASSOC))
+			{
+				$hasil[] = $result;
+				
+			}
+			return $hasil;
+		}
+
+		function analisa_elliott($AnalisaID, $UserID) {
+			$this->db = new database();
+			$conn = $this->db->koneksi;
+			$hasil = array();
+			if (!empty($AnalisaID)) {
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_elliott a
+						LEFT JOIN pasar b ON a.PasarID = b.PasarID
+						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
+						LEFT JOIN arah e ON a.ArahID = e.ArahID
+						LEFT JOIN status f ON a.StatusID = f.StatusID
+						WHERE a.AnalisaID = '$AnalisaID' AND a.UserBuat = '$UserID'";
+			} else {
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_elliott a
+						LEFT JOIN pasar b ON a.PasarID = b.PasarID
+						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
+						LEFT JOIN arah e ON a.ArahID = e.ArahID
+						LEFT JOIN status f ON a.StatusID = f.StatusID
+						WHERE a.UserBuat = '$UserID'";
+			}
+			$query = mysqli_query($conn, $sql);
+			while($result = mysqli_fetch_array($query,MYSQLI_ASSOC))
+			{
+				$hasil[] = $result;
+				
+			}
+			return $hasil;
+		}
+		
+	}
+
+
+
+
+
 	$id				= isset($_POST['ID']) ? $_POST['ID'] : '';
 	$getData		= isset($_POST['getData']) ? $_POST['getData'] : '';
 	if ($getData == 'Symbol') {

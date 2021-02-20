@@ -1,7 +1,7 @@
 <?php
 	include ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbold.php');
 	$modul 			= isset($_POST['modul']) ? $_POST['modul'] : NULL;
-	$userid			= isset($_POST['UserID']) ? $_POST['UserID']: NULL;
+	$UserID			= isset($_POST['UserID']) ? $_POST['UserID']: NULL;
 	$RencanaID		= isset($_POST['RencanaID']) ? $_POST['RencanaID']: NULL;
 	if ($modul == 'tambah_rencana' || $modul == 'ubah_rencana') {
 		$Rencana		= $_POST['Rencana'];
@@ -29,7 +29,7 @@
 		
 		$query 		=	"
 		UPDATE rencana SET AnalisaID='$Analisa', PasarID='$Pasar', SymbolID='$Symbol', JangkaWaktuID='$JangkaWaktu', RencanaTipeID='$RencanaTipe', RencanaAksiID='$RencanaAksi', Harga='$Harga', BatasRugi='$BatasRugi', AmbilUntung='$AmbilUntung', RugiPoint='$RugiPoint', UntungPoint='$UntungPoint', SaldoAwal='$SaldoAwal', Resiko='$Resiko', Lot='$Lot', Rasio='$Rasio', Kerugian='$Kerugian', Keuntungan='$Keuntungan', CatatanSebelum='$CatatanSebelum', CatatanSesudah='$CatatanSesudah', Sebelum='$Sebelum', Sesudah='$Sesudah'
-		WHERE RencanaID='$Rencana' AND UserID='$userid'";
+		WHERE RencanaID='$Rencana' AND UserID='$UserID'";
 		$insert		= mysqli_query($koneksi, $query);
 		if($insert) {
 			echo 'sukses_ubah_data';
@@ -38,7 +38,7 @@
 		}
 	}
 	if ($modul == 'hapus_rencana') {
-		$query 		=	"DELETE FROM rencana WHERE RencanaID='$RencanaID' AND UserID='$userid'";
+		$query 		=	"DELETE FROM rencana WHERE RencanaID='$RencanaID' AND UserID='$UserID'";
 		$delete		= mysqli_query($koneksi, $query);
 		if($delete) {
 			echo 'sukses_ubah_data';

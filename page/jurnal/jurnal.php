@@ -2,7 +2,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<button class="btn btn-primary float-right" href="" data-target="#globalModal" data-toggle="modal" data-id="New" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="tambah" data-folder="jurnal" data-page="jurnal" data-header="Jurnal" alt="Buat Jurnal" title="Buat Jurnal" data-backdrop="static">Buat Jurnal</button>
+				<button class="btn btn-primary float-right" href="" data-target="#globalModal" data-toggle="modal" data-id="New" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="tambah" data-folder="jurnal" data-page="jurnal" data-header="Jurnal" alt="Buat Jurnal" title="Buat Jurnal" data-backdrop="static">Buat Jurnal</button>
 				<h1 class="card-title">Daftar Jurnal</h1>
 			</div>
 			<div class="card-body">
@@ -27,7 +27,7 @@
 							LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
 							LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 							LEFT JOIN status e ON a.StatusID = e.StatusID
-							WHERE a.UserID = '$userid' ORDER BY a.TglBuat DESC");
+							WHERE a.UserID = '$UserID' ORDER BY a.TglBuat DESC");
 							while ($djurnal = mysqli_fetch_array($qjurnal,MYSQLI_ASSOC)) {
 								$JurnalID		=	$djurnal['JurnalID'];
 								$RencanaAksi	=	$djurnal['RencanaAksi'];
@@ -66,9 +66,9 @@
 								?>
 							</td>
 								<td>
-									<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $JurnalID;?>" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="lihat" data-folder="jurnal" data-page="jurnal" data-header="Jurnal" alt="Lihat Jurnal" title="Lihat Jurnal" data-backdrop="static"><i class="align-middle" data-feather="zoom-in"></i></a>
-									<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $JurnalID;?>" data-userid="<?php echo $userid;?>"  data-size="lg" data-action="ubah" data-folder="jurnal" data-page="jurnal" data-header="Jurnal" alt="Ubah Jurnal" title="Ubah Jurnal" data-backdrop="static"><i class="align-middle" data-feather="edit-3"></i></a>
-									<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $JurnalID;?>" data-userid="<?php echo $userid;?>"  data-size="sm" data-action="hapus" data-folder="jurnal" data-page="jurnal" data-header="Jurnal" alt="Hapus Jurnal" title="Hapus Jurnal" data-backdrop="static"><i class="align-middle" data-feather="trash"></i></a>
+									<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $JurnalID;?>" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="lihat" data-folder="jurnal" data-page="jurnal" data-header="Jurnal" alt="Lihat Jurnal" title="Lihat Jurnal" data-backdrop="static"><i class="align-middle" data-feather="zoom-in"></i></a>
+									<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $JurnalID;?>" data-UserID="<?php echo $UserID;?>"  data-size="lg" data-action="ubah" data-folder="jurnal" data-page="jurnal" data-header="Jurnal" alt="Ubah Jurnal" title="Ubah Jurnal" data-backdrop="static"><i class="align-middle" data-feather="edit-3"></i></a>
+									<a href="" data-target="#globalModal" data-toggle="modal" data-id="<?php echo $JurnalID;?>" data-UserID="<?php echo $UserID;?>"  data-size="sm" data-action="hapus" data-folder="jurnal" data-page="jurnal" data-header="Jurnal" alt="Hapus Jurnal" title="Hapus Jurnal" data-backdrop="static"><i class="align-middle" data-feather="trash"></i></a>
 								</td>
 							</tr>
 							<?php

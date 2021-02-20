@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Trading Management Systems">
     <meta name="author" content="BetangFX">
-    <link rel="icon" href="<?php echo $site_url;?>/Icon.png" type="image/icon type">
+    <link rel="icon" href="<?php echo $site_url;?>/assets/img/Icon.png" type="image/icon type">
     <title><?php echo $appname . ' '. $vendors;?></title>
 
     <link rel="preconnect" href="//fonts.gstatic.com/" crossorigin="">
@@ -33,10 +33,10 @@
 <body>
     <?php
 			session_start();
-			$username	= isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
-			$userid		= isset($_SESSION['userid']) ? $_SESSION['userid'] : NULL;
-			$usergroup	= isset($_SESSION['usergroup']) ? $_SESSION['usergroup'] : NULL;
-			if ($username = NULL || empty($username) && $userid = NULL || empty($userid) ){
+			$Username	= isset($_SESSION['Username']) ? $_SESSION['Username'] : NULL;
+			$UserID		= isset($_SESSION['UserID']) ? $_SESSION['UserID'] : NULL;
+			$UserLevel	= isset($_SESSION['UserLevel']) ? $_SESSION['UserLevel'] : NULL;
+			if ($Username = NULL || empty($Username) && $UserID = NULL || empty($UserID) ){
 			?>
     <main class="main d-flex w-100">
         <div class="container d-flex flex-column">
@@ -61,7 +61,7 @@
                                     <form id="login" name="login" method="POST" action="">
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input class="form-control form-control-lg" type="text" name="username"
+                                            <input class="form-control form-control-lg" type="text" name="Username"
                                                 placeholder="">
                                         </div>
                                         <div class="form-group">
@@ -103,9 +103,10 @@
     <?php 
 			}
 			else {
-				$username	= isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
-				$userid		= isset($_SESSION['userid']) ? $_SESSION['userid'] : NULL;
-				$usergroup	= isset($_SESSION['usergroup']) ? $_SESSION['usergroup'] : NULL;
+				$Username	= isset($_SESSION['Username']) ? $_SESSION['Username'] : NULL;
+				$UserID		= isset($_SESSION['UserID']) ? $_SESSION['UserID'] : NULL;
+				$UserLevel	= isset($_SESSION['UserLevel']) ? $_SESSION['UserLevel'] : NULL;
+                $UAPage     = isset($_GET['page']) ? $_GET['page'] : NULL;
 			?>
 
     <div class="wrapper">
@@ -122,42 +123,33 @@
         </nav>
         <div class="main">
 
-            <!-- Top Menu -->
             <?php include ('includes/top_menu.php');?>
-            <!-- /Top Menu -->
-            <!-- Main Content -->
 
             <main class="content" style="padding:1rem;">
                 <div class="container-fluid p-0">
                     <?php
-								if(isset($_GET['page']))
-								{
-									$UserModulPage = $_GET['page'];
-									foreach (getUserModulPage($UserModulPage) as $row) {
-										
-										$modulename = $row['Modul'];
-										$Lokasi 	= explode('/', $row['Lokasi']);
-										$folder		= $Lokasi[1];
-										$module		= $Lokasi[2];
-										$modulepage	= $Lokasi[2].'.php';
-									}
-									if(file_exists($folder.'/'.$module.'/'.$modulepage))
-									{
-										include($folder.'/'.$module.'/'.$modulepage);
-									}
-									else 
-									{
-										echo '<div class="col-md-12"><div class="alert alert-danger"><i class="fa fa-warning"></i> File not found ('.$site_url.'/'.$folder.'/'.$module.'/'.$modulepage.')</div></div>';
-									}
-								}
-								else
-								{
-									
-									//"SELECT b.Symbol, COUNT(a.Symbol) AS JumlahAnalisa FROM analisa a LEFT JOIN symbol b ON a.Symbol = b.SymbolID GROUP BY a.Symbol ORDER BY COUNT(a.Symbol) DESC LIMIT 0,1 ";
-								?>
-                   	<div class="row">
+					if($UAPage) {
+                        $ModuleProperty = new module();
+                        $UserAccessPage = $UAPage;
+                        foreach ($ModuleProperty->getusermodul($UserAccessPage) as $row) {
+                            $ModuleID   = $row['ModulID'];
+                            $ModuleNM   = $row['Modul'];
+                            $Lokasi 	= explode('/', $row['Lokasi']);
+                            $Folder		= $Lokasi[1];
+                            $Module		= $Lokasi[2];
+                            $Page		= $Lokasi[2] . '.php';
+                        }
+						    if(file_exists($mod_folder . $Folder . '/' . $Module . '/'. $Page)) {
+								include($mod_folder . $Folder . '/' . $Module . '/'. $Page);
+							}
+							else {
+								echo '<div class="col-md-12"><div class="alert alert-danger"><i class="fa fa-warning"></i> File not found ('.$site_url.'/'. $mod_folder . $Folder . '/' . $Module . '/'. $Page.')</div></div>';
+							}
+					}
+					else { 
+                    ?>
+                    <div class="row">
                         <div class="col-12 col-lg-8 d-flex">
-
                             <div id="smartwizard-arrows-success" class="col-12 wizard wizard-success mb-4">
                                 <h1 class="h3 mt-3 mb-3 text-center">4 Langkah Sukses</h1>
                                 <ul>
@@ -166,7 +158,6 @@
                                     <li><a href="#arrows-success-step-3">Jurnal</a></li>
                                     <li><a href="#arrows-success-step-4">Evaluasi</a></li>
                                 </ul>
-
                                 <div>
                                     <div id="arrows-success-step-1" class="">
                                         <blockquote class="blockquote-reverse m-b-0">
@@ -221,7 +212,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-12 col-lg-4 d-flex">
                             <div class="card flex-fill w-100">
@@ -237,7 +227,7 @@
                             </div>
                         </div>
                     </div>
-					<div class="row">
+                    <div class="row">
                         <div class="col-12 col-md-6 col-xl d-flex">
                             <div class="card flex-fill">
                                 <div class="card-body py-4">
@@ -328,14 +318,11 @@
                         </div>
                     </div>
                     <?php
-								}
-							?>
+					}
+					?>
                 </div>
             </main>
-            <!-- EOF Main Content -->
-            <!-- Footer -->
-            <?php include ('includes/footer.php'); ?>
-            <!-- EOF Footer -->
+            <?php include $inc_folder . 'footer.php'; ?>
         </div>
         <div class="modal fade" id="globalModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
             <div class="modal-dialog" role="document">

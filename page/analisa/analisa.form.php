@@ -5,10 +5,10 @@
 	include ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbold.php');
 	$modul 		= isset($_POST['modul']) ? $_POST['modul'] : NULL;
 	$id			= isset($_POST['ID']) ? $_POST['ID'] : NULL;
-	$userid		= isset($_POST['UserID']) ? $_POST['UserID'] : NULL;
+	$UserID		= isset($_POST['UserID']) ? $_POST['UserID'] : NULL;
 	
 	if ($modul == 'tambah_analisa') {
-		$NoAnalisa = NoAnalisa($id, $userid);
+		$NoAnalisa = NoAnalisa($id, $UserID);
 		$DAPasarID = '';
 		$DASymbolID = '';
 		$DAJangkaWaktuID = '';
@@ -44,7 +44,7 @@
 		LEFT JOIN wave_pola i ON a.Pola = i.PolaID
 		LEFT JOIN wave_posisi j ON a.Posisi = j.PosisiID
 		LEFT JOIN wave_derajat k ON a.Derajat = k.DerajatID
-		WHERE a.AnalisaID = '$id' AND a.UserID='$userid'
+		WHERE a.AnalisaID = '$id' AND a.UserID='$UserID'
 		");
 		while ($danalisa = mysqli_fetch_array($qanalisa,MYSQLI_ASSOC)) {
 			$NoAnalisa = $danalisa['AnalisaID'];
@@ -90,7 +90,7 @@
 							<span class="input-group-text">@</span>
 						</div>
 						<input type="hidden" class="form-control" id="modul" name="modul" value="<?php echo $modul;?>">
-						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $userid;?>" readonly>
+						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $UserID;?>" readonly>
 						<input type="text" class="form-control" id="AnalisaID" name="AnalisaID" value="<?php echo $NoAnalisa;?>" readonly>
 					</div>
 				</div>
@@ -421,7 +421,7 @@
 						<input type="hidden" class="form-control" id="modul" name="modul" value="<?php echo $modul;?>">
 					</div>
 					<div class="input-group">
-						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $userid;?>">
+						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $UserID;?>">
 					</div>
 					<div class="input-group">
 						<input type="hidden" class="form-control" id="AnalisaID" name="AnalisaID" value="<?php echo $id;?>">

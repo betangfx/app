@@ -3,10 +3,10 @@
 	require_once ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 	$modul 		= isset($_POST['modul']) ? $_POST['modul'] : NULL;
 	$id			= isset($_POST['ID']) ? $_POST['ID'] : NULL;
-	$userid		= isset($_POST['UserID']) ? $_POST['UserID'] : NULL;
+	$UserID		= isset($_POST['UserID']) ? $_POST['UserID'] : NULL;
 	
 	if ($modul == 'tambah_jurnal') {
-		$NoJurnal = NoJurnal($id, $userid);
+		$NoJurnal = NoJurnal($id, $UserID);
 		$DJRencanaID = '';
 		$DJPasar = '';
 		$DJPasarID = '';
@@ -44,7 +44,7 @@
 		LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
 		LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 		LEFT JOIN rencana_aksi e ON a.AksiID = e.RencanaAksiID
-		WHERE a.JurnalID ='$id' AND a.UserID = '$userid'");
+		WHERE a.JurnalID ='$id' AND a.UserID = '$UserID'");
 		while ($djurnal = mysqli_fetch_array($qjurnal,MYSQLI_ASSOC)) {
 			$NoJurnal = $djurnal['JurnalID'];
 			$DJRencanaID = $djurnal['RencanaID'];
@@ -105,7 +105,7 @@
 							<span class="input-group-text">@</span>
 						</div>
 						<input type="hidden" id="modul" name="modul" value="<?php echo $modul;?>">
-						<input type="hidden" id="UserID" name="UserID" value="<?php echo $userid;?>" readonly>
+						<input type="hidden" id="UserID" name="UserID" value="<?php echo $UserID;?>" readonly>
 						<input type="text" class="form-control" id="JurnalID" name="Jurnal" value="<?php echo $NoJurnal;?>" readonly>
 					</div>
 				</div>
@@ -119,7 +119,7 @@
 						<option value="">Rencana No...</option>
 						<option value="Manual">Tanpa Rencana</option>
 						<?php
-							$qsrencana = mysqli_query($koneksi,"SELECT * FROM rencana WHERE UserID='$userid' AND StatusID='1' ORDER BY RencanaID DESC");
+							$qsrencana = mysqli_query($koneksi,"SELECT * FROM rencana WHERE UserID='$UserID' AND StatusID='1' ORDER BY RencanaID DESC");
 							while ($dsrencana = mysqli_fetch_array($qsrencana,MYSQLI_ASSOC)) {
 								$DSRencanaID	=	$dsrencana['RencanaID'];
 							?>
@@ -428,7 +428,7 @@
 						<input type="hidden" id="modul" name="modul" value="<?php echo $modul;?>">
 					</div>
 					<div class="input-group">
-						<input type="hidden" id="UserID" name="UserID" value="<?php echo $userid;?>">
+						<input type="hidden" id="UserID" name="UserID" value="<?php echo $UserID;?>">
 					</div>
 					<div class="input-group">
 						<input type="hidden" id="JurnalID" name="JurnalID" value="<?php echo $id;?>">

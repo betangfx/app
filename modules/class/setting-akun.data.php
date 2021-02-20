@@ -3,6 +3,8 @@
 		
 		function ringkasanAkun($UserID) 
 		{
+			$this->db = new database();
+			$conn = $this->db->koneksi;
 			$query = "SELECT a.AkunID, a.UserID,
 			COALESCE(SUM(CASE WHEN a.TransaksiID = '1' then a.Nominal end), 0) as TotalTambahDana,
 			COALESCE(SUM(CASE WHEN a.TransaksiID = '2' then a.Nominal end), 0) as TotalTarikDana,
@@ -10,9 +12,7 @@
 			FROM user_akun_transaksi a
 			LEFT JOIN user_akun_saldo b ON a.UserID = b.UserID
 			WHERE a.UserID ='$UserID'"; 
-			$this->db = new database(); 
-			
-			$data = mysqli_query($this->db->koneksi,$query);
+			$data = mysqli_query($conn,$query);
 			while($row = mysqli_fetch_array($data)){
 				$hasil[] = $row;
 			}
@@ -52,6 +52,7 @@
 				return $hasil;
 				} 
 				else if  ($action == 'read') {
+					$hasil = array();
 					$sql = "SELECT a.AkunID, a.BrokerID, b.Broker, a.NoAkun, a.Leverage FROM user_akun a LEFT JOIN broker b ON a.BrokerID = b.BrokerID WHERE a.UserID = '$UserID'"; 
 					$query = mysqli_query($conn,$sql);
 					while($result = mysqli_fetch_array($query)){
@@ -100,6 +101,7 @@
 				return $hasil;
 			}
 			else if ($action == 'read') {
+				$hasil = array();
 				$sql = "SELECT a.AkunID, a.TransaksiID, a.Nominal, a.TglTransaksi, b.Transaksi FROM user_akun_transaksi a 
 				LEFT JOIN transaksi b ON a.TransaksiID = b.TransaksiID
 				WHERE a.UserID = '$UserID'"; 
@@ -110,6 +112,7 @@
 				return $hasil;
 			}
 			else if ($action == 'read_tambah') {
+				$hasil = array();
 				$sql = "SELECT a.AkunTransaksiID, a.AkunID, a.TransaksiID, a.Nominal, a.TglTransaksi, b.Transaksi FROM user_akun_transaksi a 
 				LEFT JOIN transaksi b ON a.TransaksiID = b.TransaksiID
 				WHERE a.UserID = '$UserID' AND a.TransaksiID = '1'"; 
@@ -120,6 +123,7 @@
 				return $hasil;
 			}
 			else if ($action == 'read_tarik') {
+				$hasil = array();
 				$sql = "SELECT a.AkunTransaksiID, a.AkunID, a.TransaksiID, a.Nominal, a.TglTransaksi, b.Transaksi FROM user_akun_transaksi a 
 				LEFT JOIN transaksi b ON a.TransaksiID = b.TransaksiID
 				WHERE a.UserID = '$UserID' AND a.TransaksiID = '2'"; 
@@ -155,6 +159,7 @@
 		{
 			$this->db = new database();
 			$conn = $this->db->koneksi;
+			$hasil = array();
 			$sql = "SELECT a.SaldoAkhir FROM user_akun_saldo a
 				WHERE a.UserID = '$UserID'"; 
 				$query = mysqli_query($conn,$sql);
