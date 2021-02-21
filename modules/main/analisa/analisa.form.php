@@ -1230,8 +1230,8 @@ $(document).ready(function() {
             type: 'POST',
             url: '../modules/main/analisa/analisa.process.php',
             data: {
-                'RangkaianID': RangkaianID,
-                'StrukturID': StrukturID,
+                'Rangkaian': RangkaianID,
+                'Struktur': StrukturID,
                 'ID': TipeID,
                 'getData': getData
             },
@@ -1258,8 +1258,8 @@ $(document).ready(function() {
             type: 'POST',
             url: '../modules/main/analisa/analisa.process.php',
             data: {
-                'RangkaianID': RangkaianID,
-                'StrukturID': StrukturID,
+                'Rangkaian': RangkaianID,
+                'Struktur': StrukturID,
                 'ID': TipeID,
                 'getData': getData
             },
@@ -1287,8 +1287,8 @@ $(document).ready(function() {
             type: 'POST',
             url: '../modules/main/analisa/analisa.process.php',
             data: {
-                'RangkaianID': RangkaianID,
-                'StrukturID': StrukturID,
+                'Rangkaian': RangkaianID,
+                'Struktur': StrukturID,
                 'ID': TipeID,
                 'getData': getData
             },
