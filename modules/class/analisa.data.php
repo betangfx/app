@@ -22,16 +22,16 @@
 			$hasil = array();
 			if (!empty($AnalisaID)) {
 				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_simple a
-						LEFT JOIN pasar b ON a.PasarID = b.PasarID
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 						LEFT JOIN arah e ON a.ArahID = e.ArahID
 						LEFT JOIN status f ON a.StatusID = f.StatusID
 						WHERE a.AnalisaID = '$AnalisaID' AND a.UserBuat = '$UserID'";
 			} else {
 				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_simple a
-						LEFT JOIN pasar b ON a.PasarID = b.PasarID
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 						LEFT JOIN arah e ON a.ArahID = e.ArahID
 						LEFT JOIN status f ON a.StatusID = f.StatusID
@@ -52,16 +52,16 @@
 			$hasil = array();
 			if (!empty($AnalisaID)) {
 				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snd a
-						LEFT JOIN pasar b ON a.PasarID = b.PasarID
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 						LEFT JOIN arah e ON a.ArahID = e.ArahID
 						LEFT JOIN status f ON a.StatusID = f.StatusID
 						WHERE a.AnalisaID = '$AnalisaID' AND a.UserBuat = '$UserID'";
 			} else {
 				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snd a
-						LEFT JOIN pasar b ON a.PasarID = b.PasarID
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 						LEFT JOIN arah e ON a.ArahID = e.ArahID
 						LEFT JOIN status f ON a.StatusID = f.StatusID
@@ -82,16 +82,16 @@
 			$hasil = array();
 			if (!empty($AnalisaID)) {
 				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snr a
-						LEFT JOIN pasar b ON a.PasarID = b.PasarID
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 						LEFT JOIN arah e ON a.ArahID = e.ArahID
 						LEFT JOIN status f ON a.StatusID = f.StatusID
 						WHERE a.AnalisaID = '$AnalisaID' AND a.UserBuat = '$UserID'";
 			} else {
 				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snr a
-						LEFT JOIN pasar b ON a.PasarID = b.PasarID
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 						LEFT JOIN arah e ON a.ArahID = e.ArahID
 						LEFT JOIN status f ON a.StatusID = f.StatusID
@@ -112,16 +112,16 @@
 			$hasil = array();
 			if (!empty($AnalisaID)) {
 				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_elliott a
-						LEFT JOIN pasar b ON a.PasarID = b.PasarID
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 						LEFT JOIN arah e ON a.ArahID = e.ArahID
 						LEFT JOIN status f ON a.StatusID = f.StatusID
 						WHERE a.AnalisaID = '$AnalisaID' AND a.UserBuat = '$UserID'";
 			} else {
 				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_elliott a
-						LEFT JOIN pasar b ON a.PasarID = b.PasarID
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
+						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
 						LEFT JOIN arah e ON a.ArahID = e.ArahID
 						LEFT JOIN status f ON a.StatusID = f.StatusID
@@ -138,110 +138,68 @@
 		
 	}
 
+	class aksi {
 
+		function tambah_simple($SymbolID, $JangkaWaktuID, $ArahID, $AnalisaSimple, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $StatusID, $AnalisaID, $UserID){
+			$this->db 	= new database();
+			$conn 		= $this->db->koneksi;
+			$sql 		= "UPDATE analisa_simple SET SymbolID='$SymbolID', JangkaWaktuID='$JangkaWaktuID', ArahID='$ArahID', AnalisaSimple='$AnalisaSimple', CatatanSebelum='$CatatanSebelum', CatatanSesudah='$CatatanSesudah', CaptureSebelum='$CaptureSebelum', CaptureSesudah='$CaptureSesudah', StatusID='$StatusID' WHERE AnalisaID='$AnalisaID' AND UserBuat='$UserID'";
+			$result		= mysqli_query($conn,$sql);
+			if ($result) {
+				echo 'sukses';
+			} else {
+				echo 'gagal tambah data';
+			}
+		}
 
+		function tambah_snd($SymbolID, $JangkaWaktuID, $ArahID, $AreaSupply, $TglAreaSupply, $TestAreaSupply, $AreaDemand, $TglAreaDemand, $TestAreaDemand, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $StatusID, $AnalisaID, $UserID){
+			$this->db 	= new database();
+			$conn 		= $this->db->koneksi;
+			$sql 		= "UPDATE analisa_snd SET SymbolID='$SymbolID', JangkaWaktuID='$JangkaWaktuID', ArahID='$ArahID', AreaSupply='$AreaSupply', TglAreaSupply='$TglAreaSupply', TestAreaSupply='$TestAreaSupply', AreaDemand='$AreaDemand', TglAreaDemand='$TglAreaDemand', TestAreaDemand='$TestAreaDemand', CatatanSebelum='$CatatanSebelum', CatatanSesudah='$CatatanSesudah', CaptureSebelum='$CaptureSebelum', CaptureSesudah='$CaptureSesudah', StatusID='$StatusID' WHERE AnalisaID='$AnalisaID' AND UserBuat='$UserID'";
+			$result		= mysqli_query($conn,$sql);
+			if ($result) {
+				echo 'sukses';
+			} else {
+				echo 'gagal tambah data';
+			}
+		}
 
+		function tambah_snr($SymbolID, $JangkaWaktuID, $ArahID, $AreaResisten, $TglAreaResisten, $TestAreaResisten, $AreaSupport, $TglAreaSupport, $TestAreaSupport, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $StatusID, $AnalisaID, $UserID) {
+			$this->db 	= new database();
+			$conn 		= $this->db->koneksi;
+			$sql 		= "UPDATE analisa_snr SET SymbolID='$SymbolID', JangkaWaktuID='$JangkaWaktuID', ArahID='$ArahID', AreaResisten='$AreaResisten', TglAreaResisten='$TglAreaResisten', TestAreaResisten='$TestAreaResisten', AreaSupport='$AreaSupport', TglAreaSupport='$TglAreaSupport', TestAreaSupport='$TestAreaSupport', CatatanSebelum='$CatatanSebelum', CatatanSesudah='$CatatanSesudah', CaptureSebelum='$CaptureSebelum', CaptureSesudah='$CaptureSesudah', StatusID='$StatusID' WHERE AnalisaID='$AnalisaID' AND UserBuat='$UserID'";
+			$result		= mysqli_query($conn,$sql);
+			if ($result) {
+				echo 'sukses';
+			} else {
+				echo 'gagal tambah data';
+			}
+		}
 
-	$id				= isset($_POST['ID']) ? $_POST['ID'] : '';
-	$getData		= isset($_POST['getData']) ? $_POST['getData'] : '';
-	if ($getData == 'Symbol') {
-		if ($id == '') {
-			$query_text = "SELECT SymbolID, Symbol FROM symbol";
+		function tambah_elliot($SymbolID, $JangkaWaktuID, $ArahID, $RangkaianID, $StrukturID, $TipeID, $PolaID, $PosisiID, $DerajatID, $Aturan, $NilaiSesuai, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $StatusID, $AnalisaID, $UserID) {
+			$this->db 	= new database();
+			$conn 		= $this->db->koneksi;
+			$sql 		= "UPDATE analisa_elliott SET SymbolID='$SymbolID', JangkaWaktuID='$JangkaWaktuID', ArahID='$ArahID', RangkaianID='$RangkaianID', StrukturID='$StrukturID', TipeID='$TipeID', PolaID='$PolaID', PosisiID='$PosisiID', DerajatID='$DerajatID', Aturan='$Aturan', Nilai='$NilaiSesuai', CatatanSebelum='$CatatanSebelum', CatatanSesudah='$CatatanSesudah', CaptureSebelum='$CaptureSebelum', CaptureSesudah='$CaptureSesudah', StatusID='$StatusID' WHERE AnalisaID='$AnalisaID' AND UserBuat='$UserID'";
+			$result		= mysqli_query($conn,$sql);
+			if ($result) {
+				echo 'sukses';
 			} else {
-			$query_text = "SELECT SymbolID, Symbol FROM symbol WHERE PasarID = '$id'";
+				echo 'gagal tambah data';
+			}		
 		}
-		$query = mysqli_query($koneksi, $query_text);
-		while ($row = mysqli_fetch_assoc($query)) {
-			$data[] = $row;
-		}
-		echo json_encode($data);
-		mysqli_close($koneksi);
-	}
-	if ($getData == 'Struktur') {
-		if ($id == '') {
-			$query_text = "SELECT StrukturID, Struktur FROM wave_struktur";
+
+		function hapus($Table,$AnalisaID,$UserID){
+			$this->db 	= new database();
+			$conn 		= $this->db->koneksi;
+			$sql 		= "DELETE FROM analisa_$Table WHERE AnalisaID='$AnalisaID' AND UserBuat='$UserID'";
+			$result		= mysqli_query($conn,$sql);
+			if ($result) {
+				echo 'sukses';
 			} else {
-			$query_text = "SELECT StrukturID, Struktur FROM wave_struktur WHERE RangkaianID = '$id'";
+				echo 'gagal hapus data';
+			}
 		}
-		$query = mysqli_query($koneksi, $query_text);
-		while ($row = mysqli_fetch_assoc($query)) {
-			$data[] = $row;
-		}
-		echo json_encode($data);
-		mysqli_close($koneksi);
-	}
-	if ($getData == 'Tipe') {
-		if ($id == '') {
-			$query_text = "SELECT TipeID, Tipe FROM wave_tipe";
-			} else {
-			$query_text = "SELECT TipeID, Tipe FROM wave_tipe WHERE StrukturID = '$id'";
-		}
-		$query = mysqli_query($koneksi, $query_text);
-		while ($row = mysqli_fetch_assoc($query)) {
-			$data[] = $row;
-		}
-		echo json_encode($data);
-		mysqli_close($koneksi);
-	}
-	
-	if ($getData == 'Pola') {
-		$RangkaianID = $_POST['RangkaianID'];
-		$StrukturID = $_POST['StrukturID'];
-		if ($id == '') {
-			$query_text = "SELECT PolaID, Pola FROM wave_pola";
-			} else {
-			$query_text_pola = "SELECT PolaID FROM wave_aturanjoin WHERE RangkaianID = '$RangkaianID' AND StrukturID = '$StrukturID' AND TipeID = '$id'";
-			$query_pola 	= mysqli_query($koneksi, $query_text_pola);
-			$data_pola 		= mysqli_fetch_array($query_pola); 
-			$ListPolaID 	= $data_pola['PolaID'];
-			$query_text = "SELECT PolaID, Pola FROM wave_pola WHERE PolaID IN ($ListPolaID)";
-		}
-		$query = mysqli_query($koneksi, $query_text);
-		while ($row = mysqli_fetch_assoc($query)) {
-			$data[] = $row;
-		}
-		echo json_encode($data);
-		mysqli_close($koneksi);
-	}
-	
-	if ($getData == 'Posisi') {
-		$RangkaianID = $_POST['RangkaianID'];
-		$StrukturID = $_POST['StrukturID'];
-		if ($id == '') {
-			$query_text = "SELECT PosisiID, Posisi FROM wave_posisi";
-			} else {
-			$query_text_posisi 	= "SELECT PosisiID FROM wave_aturanjoin WHERE RangkaianID = '$RangkaianID' AND StrukturID = '$StrukturID' AND TipeID = '$id'";
-			$query_posisi 		= mysqli_query($koneksi, $query_text_posisi);
-			$data_posisi		= mysqli_fetch_array($query_posisi); 
-			$ListPosisiID 		= $data_posisi['PosisiID'];
-			$query_text = "SELECT PosisiID, Posisi FROM wave_posisi WHERE PosisiID IN ($ListPosisiID)";
-		}
-		$query = mysqli_query($koneksi, $query_text);
-		while ($row = mysqli_fetch_assoc($query)) {
-			$data[] = $row;
-		}
-		echo json_encode($data);
-		mysqli_close($koneksi);
-	}
-	
-	if ($getData == 'Aturan') {
-		$RangkaianID = $_POST['RangkaianID'];
-		$StrukturID = $_POST['StrukturID'];
-		if ($id == '') {
-			echo 'empty id';
-			} else {
-			$query_text_aturan 	= "SELECT AturanID FROM wave_aturanjoin WHERE RangkaianID = '$RangkaianID' AND StrukturID = '$StrukturID' AND TipeID = '$id'";
-			$query_aturan 		= mysqli_query($koneksi, $query_text_aturan);
-			$data_aturan		= mysqli_fetch_array($query_aturan); 
-			$ListAturanID 		= $data_aturan['AturanID'];
-			$query_text = "SELECT AturanID, AturanKategoriID, Aturan FROM wave_aturan WHERE AturanID IN ($ListAturanID)";
-		}
-		$query = mysqli_query($koneksi, $query_text);
-		while ($row = mysqli_fetch_assoc($query)) {
-			$data[] = $row;
-		}
-		echo json_encode($data);
-		mysqli_close($koneksi);
+
 	}
 	
 ?>

@@ -14,9 +14,9 @@
     <link rel="icon" href="<?php echo $site_url;?>/assets/img/Icon.png" type="image/icon type">
     <title><?php echo $appname . ' '. $vendors;?></title>
 
-    <link rel="preconnect" href="//fonts.gstatic.com/" crossorigin="">
-
+    
     <link href="<?php echo $site_url;?>/assets/css/classic.css" rel="stylesheet">
+    <link href="<?php echo $site_url;?>/assets/css/summernote.css" rel="stylesheet">
     <style>
     body {
         opacity: 0;
@@ -370,6 +370,7 @@
     <script src="<?php echo $site_url;?>/assets/js/app.js"></script>
     <script src="<?php echo $site_url;?>/assets/js/datatable.data.js"></script>
     <script src="<?php echo $site_url;?>/assets/js/form.js"></script>
+    <script src="<?php echo $site_url;?>/assets/js/summernote.js"></script>
     <script>
     $(function() {
         $("#smartwizard-arrows-success").smartWizard({
