@@ -1,8 +1,5 @@
 $(document).ready(function() {
-    $('#analisa_simple, #analisa_snd, #analisa_snr, #analisa_elliott').DataTable({
-        "paging": false,
-        "info": false
-    });
+
     $("#list-rencana").DataTable({
         responsive: true,
         "pagingType": "simple"

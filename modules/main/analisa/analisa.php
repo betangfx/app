@@ -31,17 +31,17 @@
                 <div class="tab-pane <?php if($key==0){ echo "active"; }?>"
                     id="tab-analisa-<?php echo $SubModuleSlug;?>" role="tabpanel">
                     <div class="row">
-                        <table id="analisa_<?php echo $SubModuleSlug;?>" class="table table-striped">
+                        <table id="analisa_<?php echo $SubModuleSlug;?>" class="table table-striped" width="100%">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>No. Analisa</th>
-                                    <th>Pasar</th>
-                                    <th>Symbol</th>
-                                    <th>Jangka<br />Waktu</th>
-                                    <th>Arah<br />Dominan</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th class="align-middle text-center" width="5%">No</th>
+                                    <th class="align-middle text-center" width="15%">No. Analisa</th>
+                                    <th class="align-middle text-center" width="10%">Pasar</th>
+                                    <th class="align-middle text-center" width="15%">Symbol</th>
+                                    <th class="align-middle text-center" width="15%">Jangka<br />Waktu</th>
+                                    <th class="align-middle text-center" width="15%">Arah<br />Dominan</th>
+                                    <th class="align-middle text-center" width="15%">Status</th>
+                                    <th class="align-middle text-center" width="10%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,35 +60,45 @@
                                     <td><?php echo $row['Arah'];?></td>
                                     <td><?php echo $row['Status'];?></td>
                                     <td>
-                                        <div class="row">
-                                            <a class="col-sm-6 align-middle text-center" href=""
-                                                alt="Ubah <?php echo $ModuleNM;?>" title="Ubah <?php echo $ModuleNM;?>"
-                                                data-target="#newModal" data-toggle="modal" data-backdrop="static"
-                                                data-size="lg" data-action="ubah"
-                                                data-header="Ubah <?php echo $ModuleNM;?>"
-                                                data-sub-header="- <?php echo $SubModule;?>"
-                                                data-module="<?php echo $Module;?>"
-                                                data-submodule="<?php echo $SubModuleSlug;?>"
-                                                data-form="<?php echo $Module;?>" data-folder="<?php echo $Folder;?>"
-                                                data-id="<?php echo $row['AnalisaID'];?>"
-                                                data-UserID="<?php echo $UserID;?>">
-                                                <i class="align-middle" data-feather="edit-3"></i>
-                                            </a>
-                                            <a class="col-sm-6 align-middle text-center" href="" 
-                                                alt="Hapus <?php echo $ModuleNM;?>" title="Hapus <?php echo $ModuleNM;?>"
-                                                data-target="#newModal" data-toggle="modal" data-backdrop="static"
-                                                data-size="sm" data-action="hapus"
-                                                data-header="Hapus <?php echo $ModuleNM;?>"
-                                                data-sub-header="- <?php echo $SubModule;?>"
-                                                data-module="<?php echo $Module;?>"
-                                                data-submodule="<?php echo $SubModuleSlug;?>"
-                                                data-form="<?php echo $Module;?>" data-folder="<?php echo $Folder;?>"
-                                                data-id="<?php echo $row['AnalisaID'];?>"
-                                                data-UserID="<?php echo $UserID;?>">
-                                                <i class="align-middle" data-feather="trash"></i>
-                                            </a>
-
-                                        </div>
+                                    <a class="align-middle text-center" href=""
+                                            alt="Detail <?php echo $ModuleNM;?>" title="Detail <?php echo $ModuleNM;?>"
+                                            data-target="#newModal" data-toggle="modal" data-backdrop="static"
+                                            data-size="lg" data-action="lihat"
+                                            data-header="Detail <?php echo $ModuleNM;?>"
+                                            data-sub-header="- <?php echo $SubModule;?>"
+                                            data-module="<?php echo $Module;?>"
+                                            data-submodule="<?php echo $SubModuleSlug;?>"
+                                            data-form="<?php echo $Module;?>" data-folder="<?php echo $Folder;?>"
+                                            data-id="<?php echo $row['AnalisaID'];?>"
+                                            data-UserID="<?php echo $UserID;?>">
+                                            <i class="align-middle" data-feather="zoom-in"></i>
+                                        </a>
+                                        <a class="align-middle text-center" href=""
+                                            alt="Ubah <?php echo $ModuleNM;?>" title="Ubah <?php echo $ModuleNM;?>"
+                                            data-target="#newModal" data-toggle="modal" data-backdrop="static"
+                                            data-size="lg" data-action="ubah"
+                                            data-header="Ubah <?php echo $ModuleNM;?>"
+                                            data-sub-header="- <?php echo $SubModule;?>"
+                                            data-module="<?php echo $Module;?>"
+                                            data-submodule="<?php echo $SubModuleSlug;?>"
+                                            data-form="<?php echo $Module;?>" data-folder="<?php echo $Folder;?>"
+                                            data-id="<?php echo $row['AnalisaID'];?>"
+                                            data-UserID="<?php echo $UserID;?>">
+                                            <i class="align-middle" data-feather="edit-3"></i>
+                                        </a>
+                                        <a class="align-middle text-center" href="" 
+                                            alt="Hapus <?php echo $ModuleNM;?>" title="Hapus <?php echo $ModuleNM;?>"
+                                            data-target="#newModal" data-toggle="modal" data-backdrop="static"
+                                            data-size="sm" data-action="hapus"
+                                            data-header="Hapus <?php echo $ModuleNM;?>"
+                                            data-sub-header="- <?php echo $SubModule;?>"
+                                            data-module="<?php echo $Module;?>"
+                                            data-submodule="<?php echo $SubModuleSlug;?>"
+                                            data-form="<?php echo $Module;?>" data-folder="<?php echo $Folder;?>"
+                                            data-id="<?php echo $row['AnalisaID'];?>"
+                                            data-UserID="<?php echo $UserID;?>">
+                                            <i class="align-middle" data-feather="trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 <?php   

@@ -120,6 +120,22 @@ $(document).ready(function() {
             });
 
         }
+        if (action == 'lihat') {
+            $('#newModal .modal-dialog').addClass('modal-dialog').addClass('modal-' + size);
+            $('#newModal .modal-title').text(header + ' ' + sub_header);
+            var modul = action + '_' + page;
+            $.ajax({
+                type: 'POST',
+                url: '../modules/' + folder + '/' + module + '/' + page + '.form.php',
+                data: { 'ID': id, 'modul': modul, 'submodul': sub, 'UserID': UserID },
+                success: function(data) {
+                    var divs = data.split('---');
+                    $('#newModal .modal-body-data').html(divs[0]);
+                    $('#newModal .modal-footer-data').html(divs[1]);
+                }
+            });
+
+        }
         if (action == 'hapus') {
             $('#newModal .modal-dialog').removeClass('modal-dialog').removeClass('modal-dialog').removeClass('modal-lg').addClass('modal-dialog').addClass('modal-' + size);
             $('#newModal .modal-title').text('Form ' + header + ' ' + sub_header);

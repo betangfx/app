@@ -56,6 +56,26 @@
 		$result = $Aksi->tambah_elliot($Symbol, $JangkaWaktu, $Arah, $Rangkaian, $Struktur, $Tipe, $Pola, $Posisi, $Derajat, $Aturan, $NilaiSesuai, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $Status, $AnalisaID, $UserID);
 		echo $result;
 	}
+	if ($modul == 'ubah_analisa' && $submodul == 'simple') {
+		$Aksi 	= new aksi();
+		$result = $Aksi->ubah_simple($Symbol, $JangkaWaktu, $Arah, $AnalisaSimple, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $Status, $AnalisaID, $UserID);
+		echo $result;
+	}
+	if ($modul == 'ubah_analisa' && $submodul == 'snd') {
+		$Aksi 	= new aksi();
+		$result = $Aksi->ubah_snd($Symbol, $JangkaWaktu, $Arah, $AreaSupply, $TglAreaSupply, $TestAreaSupply, $AreaDemand, $TglAreaDemand, $TestAreaDemand, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $Status, $AnalisaID, $UserID);
+		echo $result;
+	}
+	if ($modul == 'ubah_analisa' && $submodul == 'snr') {
+		$Aksi 	= new aksi();
+		$result = $Aksi->ubah_snr($Symbol, $JangkaWaktu, $Arah, $AreaResisten, $TglAreaResisten, $TestAreaResisten, $AreaSupport, $TglAreaSupport, $TestAreaSupport, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $Status, $AnalisaID, $UserID);
+		echo $result;
+	}
+	if ($modul == 'ubah_analisa' && $submodul == 'elliott') {
+		$Aksi 	= new aksi();
+		$result = $Aksi->ubah_elliot($Symbol, $JangkaWaktu, $Arah, $Rangkaian, $Struktur, $Tipe, $Pola, $Posisi, $Derajat, $Aturan, $NilaiSesuai, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $Status, $AnalisaID, $UserID);
+		echo $result;
+	}
 	if ($modul == 'hapus_analisa') {
 		$Aksi 	= new aksi();
 		$result = $Aksi->hapus($submodul,$id,$UserID);

@@ -60,7 +60,109 @@
             $CaptureSesudah    = '';
             $StatusID          = '1';
 	}
-	
+	else if ($modul == 'ubah_analisa' || $modul == 'lihat_analisa') {
+        $analisa_data = new analisa_data();
+        if ($submodul == 'simple') {
+            foreach ($analisa_data->analisa_simple($id, $UserID) as $row) {
+                $NoAnalisa          = $row['AnalisaID'];
+                $Pasar 		        = $row['Pasar'];
+                $SymbolID 		    = $row['SymbolID'];
+                $Symbol 		    = $row['Symbol'];
+                $JangkaWaktuID 	    = $row['JangkaWaktuID'];
+                $JangkaWaktu 	    = $row['JangkaWaktu'];
+                $ArahID 		    = $row['ArahID'];
+                $Arah		        = $row['Arah'];
+                $AnalisaSimple      = $row['AnalisaSimple'];
+                $CatatanSebelum     = $row['CatatanSebelum'];
+                $CatatanSesudah     = $row['CatatanSesudah'];
+                $CaptureSebelum     = $row['CaptureSebelum'];
+                $CaptureSesudah     = $row['CaptureSesudah'];
+                $TglBuat            = $row['TglBuat'];
+                $StatusID           = $row['StatusID'];
+                $Status             = $row['Status'];
+            }
+        } else if ($submodul == 'snd') {
+            foreach ($analisa_data->analisa_snd($id, $UserID) as $row) {
+                $NoAnalisa          = $row['AnalisaID'];
+                $Pasar 		        = $row['Pasar'];
+                $SymbolID 		    = $row['SymbolID'];
+                $Symbol 		    = $row['Symbol'];
+                $JangkaWaktuID 	    = $row['JangkaWaktuID'];
+                $JangkaWaktu 	    = $row['JangkaWaktu'];
+                $ArahID 		    = $row['ArahID'];
+                $Arah		        = $row['Arah'];
+                $AreaSupply         = $row['AreaSupply'];
+                $TglAreaSupply      = $row['TglAreaSupply'];
+                $TestAreaSupply     = $row['TestAreaSupply'];
+                $AreaDemand         = $row['AreaDemand'];
+                $TglAreaDemand      = $row['TglAreaDemand'];
+                $TestAreaDemand     = $row['TestAreaDemand'];
+                $CatatanSebelum     = $row['CatatanSebelum'];
+                $CatatanSesudah     = $row['CatatanSesudah'];
+                $CaptureSebelum     = $row['CaptureSebelum'];
+                $CaptureSesudah     = $row['CaptureSesudah'];
+                $TglBuat            = $row['TglBuat'];
+                $StatusID           = $row['StatusID'];
+                $Status             = $row['Status'];
+            }
+        } else if ($submodul == 'snr') {
+            foreach ($analisa_data->analisa_snr($id, $UserID) as $row) {
+                $NoAnalisa          = $row['AnalisaID'];
+                $Pasar 		        = $row['Pasar'];
+                $SymbolID 		    = $row['SymbolID'];
+                $Symbol 		    = $row['Symbol'];
+                $JangkaWaktuID 	    = $row['JangkaWaktuID'];
+                $JangkaWaktu 	    = $row['JangkaWaktu'];
+                $ArahID 		    = $row['ArahID'];
+                $Arah		        = $row['Arah'];
+                $AreaResisten       = $row['AreaResisten'];
+                $TglAreaResisten    = $row['TglAreaResisten'];
+                $TestAreaResisten   = $row['TestAreaResisten'];
+                $AreaSupport        = $row['AreaSupport'];
+                $TglAreaSupport      = $row['TglAreaSupport'];
+                $TestAreaSupport     = $row['TestAreaSupport'];
+                $CatatanSebelum     = $row['CatatanSebelum'];
+                $CatatanSesudah     = $row['CatatanSesudah'];
+                $CaptureSebelum     = $row['CaptureSebelum'];
+                $CaptureSesudah     = $row['CaptureSesudah'];
+                $TglBuat            = $row['TglBuat'];
+                $StatusID           = $row['StatusID'];
+                $Status             = $row['Status'];
+            }
+        } else if ($submodul == 'elliott'){
+            foreach ($analisa_data->analisa_elliott($id, $UserID) as $row) {
+                $NoAnalisa          = $row['AnalisaID'];
+                $Pasar 		        = $row['Pasar'];
+                $SymbolID 		    = $row['SymbolID'];
+                $Symbol 		    = $row['Symbol'];
+                $JangkaWaktuID 	    = $row['JangkaWaktuID'];
+                $JangkaWaktu 	    = $row['JangkaWaktu'];
+                $ArahID 		    = $row['ArahID'];
+                $Arah		        = $row['Arah'];
+                $RangkaianID        = $row['RangkaianID'];
+                $Rangkaian          = $row['Rangkaian'];
+                $StrukturID         = $row['StrukturID'];
+                $Struktur           = $row['Struktur'];
+                $TipeID             = $row['TipeID'];
+                $Tipe               = $row['Tipe'];
+                $PolaID             = $row['PolaID'];
+                $Pola               = $row['Pola'];
+                $PosisiID           = $row['PosisiID'];
+                $Posisi             = $row['Posisi'];
+                $DerajatID          = $row['DerajatID'];
+                $Derajat            = $row['Derajat'];
+                $KondisiAturan      = json_decode($row['Aturan']);
+                $Nilai              = $row['Nilai'];
+                $CatatanSebelum     = $row['CatatanSebelum'];
+                $CatatanSesudah     = $row['CatatanSesudah'];
+                $CaptureSebelum     = $row['CaptureSebelum'];
+                $CaptureSesudah     = $row['CaptureSesudah'];
+                $TglBuat            = $row['TglBuat'];
+                $StatusID           = $row['StatusID'];
+                $Status             = $row['Status'];
+            }
+        }
+    }
 	?>
 <div class="row">
     <!-- Analisa Form Hidden Value -->
@@ -119,7 +221,7 @@
 							$ObjSymbol  = new symbol();
 							foreach ($ObjSymbol->data($row['PasarID']) as $row) {
 							?>
-                        <option value="<?php echo $row['SymbolID'];?>"><?php echo $row['Symbol'];?></option>
+                        <option value="<?php echo $row['SymbolID'];?>" <?php if ($SymbolID == $row['SymbolID']) { echo 'selected="selected"';} ?>><?php echo $row['Symbol'];?></option>
                         <?php
 							}
 							?>
@@ -143,7 +245,7 @@
 						foreach ($ObjJangkaWaktu->data() as $row) {
 					?>
                     <option value="<?php echo $row['JangkaWaktuID'];?>"
-                        <?php if ($JangkaWaktuID == $row['JangkaWaktuID']) { echo "selected='selected'";} ?>>
+                        <?php if ($JangkaWaktuID == $row['JangkaWaktuID']) { echo 'selected="selected"';} ?>>
                         <?php echo $row['JangkaWaktu'];?>
                     </option>
                     <?php 
@@ -541,7 +643,6 @@
 	}
 	?>
 </div>
-
 <?php 
     if ($modul == 'tambah_analisa' || $modul == 'ubah_analisa') {
 ?>
@@ -549,28 +650,28 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="CatatanSebelumID">Catatan</label>
-            <textarea id="CatatanSebelumID" name="CatatanSebelum" class="form-control"></textarea>
+            <textarea id="CatatanSebelumID" name="CatatanSebelum" class="form-control"><?php echo $CatatanSebelum;?></textarea>
         </div>
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-outline-primary">Capture</button>
                 </div>
-                <input type="text" class="form-control" id="CaptureSebelumID" name="CaptureSebelum" value="">
+                <input type="text" class="form-control" id="CaptureSebelumID" name="CaptureSebelum" value="<?php echo $CaptureSebelum;?>">
             </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label for="CatatanSesudahID">Catatan</label>
-            <textarea id="CatatanSesudahID" name="CatatanSesudah" class="form-control"></textarea>
+            <textarea id="CatatanSesudahID" name="CatatanSesudah" class="form-control"><?php echo $CatatanSesudah;?></textarea>
         </div>
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <button type="button" class="btn btn-outline-primary">Capture</button>
                 </div>
-                <input type="text" class="form-control" id="CaptureSesudahID" name="CaptureSesudah" value="">
+                <input type="text" class="form-control" id="CaptureSesudahID" name="CaptureSesudah" value="<?php echo $CaptureSesudah;?>">
             </div>
         </div>
     </div>
@@ -591,16 +692,12 @@
         </label>
     </div>
 </div>
-
-
-
 <?php
     }
 	if ($modul == 'hapus_analisa') {
 	?>
 <div class="row">
     <div class="col-md-12 text-center">
-        <!-- Struktur -->
         Hapus Analisa dengan ID : <?php echo $id;?> ?
     </div>
 </div>
@@ -622,12 +719,14 @@
                 </div>
                 <div class="col-md-6 text-md-right">
                     <div class="text-muted">Tanggal Buat</div>
-                    <strong><?php echo $DATglBuat;?></strong>
+                    <strong><?php echo $TglBuat;?></strong>
                 </div>
             </div>
 
             <hr class="my-1">
-
+            <?php 
+            if ($submodul == 'simple') {
+            ?>
             <table id="mytable" class="table table-borderless table-sm">
                 <thead>
                     <tr>
@@ -638,43 +737,185 @@
                 <tbody>
                     <tr>
                         <td>Pasar</td>
-                        <td class="text-right"><?php echo $DAPasarID;?></td>
+                        <td class="text-right"><?php echo $Pasar;?></td>
                     </tr>
                     <tr>
                         <td>Symbol</td>
-                        <td class="text-right"><?php echo $SymbolNM;?></td>
+                        <td class="text-right"><?php echo $Symbol;?></td>
                     </tr>
                     <tr>
                         <td>Jangka Waktu</td>
-                        <td class="text-right"><?php echo $JangkaWaktuNM;?></td>
+                        <td class="text-right"><?php echo $JangkaWaktu;?></td>
                     </tr>
                     <tr>
                         <td>Arah Dominan</td>
-                        <td class="text-right"><?php echo $ArahNM;?></td>
+                        <td class="text-right"><?php echo $Arah;?></td>
+                    </tr>
+                    <tr>
+                        <td>Point Analisa</td>
+                        <td class="text-left"><?php echo $AnalisaSimple;?></td>
+                    </tr>
+                </tbody>
+            </table>   
+            <?php
+            } 
+            if ($submodul == 'snd') {
+            ?>
+            <table id="mytable" class="table table-borderless table-sm">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-right"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pasar</td>
+                        <td class="text-right"><?php echo $Pasar;?></td>
+                    </tr>
+                    <tr>
+                        <td>Symbol</td>
+                        <td class="text-right"><?php echo $Symbol;?></td>
+                    </tr>
+                    <tr>
+                        <td>Jangka Waktu</td>
+                        <td class="text-right"><?php echo $JangkaWaktu;?></td>
+                    </tr>
+                    <tr>
+                        <td>Arah Dominan</td>
+                        <td class="text-right"><?php echo $Arah;?></td>
+                    </tr>
+                    <tr>
+                        <td>Area Supply</td>
+                        <td class="text-right"><?php echo $AreaSupply;?></td>
+                    </tr>
+                    <tr>
+                        <td>Waktu Terbentuk</td>
+                        <td class="text-right"><?php echo $TglAreaSupply;?></td>
+                    </tr>
+                    <tr>
+                        <td>Teruji</td>
+                        <td class="text-right"><?php echo $TestAreaSupply;?></td>
+                    </tr>
+                    <tr>
+                        <td>Area Demand</td>
+                        <td class="text-right"><?php echo $AreaDemand;?></td>
+                    </tr>
+                    <tr>
+                        <td>Waktu Terbentuk</td>
+                        <td class="text-right"><?php echo $TglAreaDemand;?></td>
+                    </tr>
+                    <tr>
+                        <td>Teruji</td>
+                        <td class="text-right"><?php echo $TestAreaDemand;?></td>
+                    </tr>
+                </tbody>
+            </table>   
+            <?php
+            } 
+            if ($submodul == 'snr') {
+            ?>
+            <table id="mytable" class="table table-borderless table-sm">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-right"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pasar</td>
+                        <td class="text-right"><?php echo $Pasar;?></td>
+                    </tr>
+                    <tr>
+                        <td>Symbol</td>
+                        <td class="text-right"><?php echo $Symbol;?></td>
+                    </tr>
+                    <tr>
+                        <td>Jangka Waktu</td>
+                        <td class="text-right"><?php echo $JangkaWaktu;?></td>
+                    </tr>
+                    <tr>
+                        <td>Arah Dominan</td>
+                        <td class="text-right"><?php echo $Arah;?></td>
+                    </tr>
+                    <tr>
+                        <td>Area Resisten</td>
+                        <td class="text-right"><?php echo $AreaResisten;?></td>
+                    </tr>
+                    <tr>
+                        <td>Waktu Terbentuk</td>
+                        <td class="text-right"><?php echo $TglAreaResisten;?></td>
+                    </tr>
+                    <tr>
+                        <td>Teruji</td>
+                        <td class="text-right"><?php echo $TestAreaResisten;?></td>
+                    </tr>
+                    <tr>
+                        <td>Area Support</td>
+                        <td class="text-right"><?php echo $AreaSupport;?></td>
+                    </tr>
+                    <tr>
+                        <td>Waktu Terbentuk</td>
+                        <td class="text-right"><?php echo $TglAreaSupport;?></td>
+                    </tr>
+                    <tr>
+                        <td>Teruji</td>
+                        <td class="text-right"><?php echo $TestAreaSupport;?></td>
+                    </tr>
+                </tbody>
+            </table>   
+            <?php
+            } 
+            if ($submodul == 'elliott') { 
+            ?>
+            <table id="mytable" class="table table-borderless table-sm">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="text-right"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pasar</td>
+                        <td class="text-right"><?php echo $Pasar;?></td>
+                    </tr>
+                    <tr>
+                        <td>Symbol</td>
+                        <td class="text-right"><?php echo $Symbol;?></td>
+                    </tr>
+                    <tr>
+                        <td>Jangka Waktu</td>
+                        <td class="text-right"><?php echo $JangkaWaktu;?></td>
+                    </tr>
+                    <tr>
+                        <td>Arah Dominan</td>
+                        <td class="text-right"><?php echo $Arah;?></td>
                     </tr>
                     <tr>
                         <td>Rangkaian</td>
-                        <td class="text-right"><?php echo $RangkaianNM;?></td>
+                        <td class="text-right"><?php echo $Rangkaian;?></td>
                     </tr>
                     <tr>
                         <td>Struktur</td>
-                        <td class="text-right"><?php echo $StrukturNM;?></td>
+                        <td class="text-right"><?php echo $Struktur;?></td>
                     </tr>
                     <tr>
                         <td>Tipe</td>
-                        <td class="text-right"><?php echo $TipeNM;?></td>
+                        <td class="text-right"><?php echo $Tipe;?></td>
                     </tr>
                     <tr>
                         <td>Pola</td>
-                        <td class="text-right"><?php echo $PolaNM;?></td>
+                        <td class="text-right"><?php echo $Pola;?></td>
                     </tr>
                     <tr>
                         <td>Posisi</td>
-                        <td class="text-right"><?php echo $PosisiNM;?></td>
+                        <td class="text-right"><?php echo $Posisi;?></td>
                     </tr>
                     <tr>
                         <td>Derajat</td>
-                        <td class="text-right"><?php echo $DerajatNM;?></td>
+                        <td class="text-right"><?php echo $Derajat;?></td>
                     </tr>
                 </tbody>
             </table>
@@ -687,7 +928,7 @@
                 </thead>
                 <tbody>
                     <?php 
-							foreach ($DAKondisiAturan as $AturanID => $Opsi) {
+							foreach ($KondisiAturan as $AturanID => $Opsi) {
 							?>
                     <tr>
                         <td class="text-sm">
@@ -715,12 +956,14 @@
                             Persentase Kesesuaian
                         </td>
                         <td class="text-center">
-                            <?php echo $DANilai;?>%
+                            <?php echo $Nilai;?>%
                         </td>
                     </tr>
                 </tbody>
             </table>
-
+            <?php
+            }
+            ?>
         </div>
     </div>
     <div class="col-md-6">
@@ -729,7 +972,7 @@
                 <strong>Catatan Sebelum:</strong>
             </div>
             <div class="py-2 py-md-3 border">
-                <?php echo $DACatatanSebelum;?>
+                <?php echo $CatatanSebelum;?>
             </div>
         </div>
         <div class="col-md-12 mt-3">
@@ -737,7 +980,7 @@
                 <strong>Gambar Sebelum</strong>
             </div>
             <div class="py-2 py-md-3">
-                <a href="<?php echo $DASebelum;?>" target="_blank"><img src="<?php echo $DASebelum;?>"
+                <a href="<?php echo $CaptureSebelum;?>" target="_blank"><img src="<?php echo $CaptureSebelum;?>"
                         style="height: 100%; width: 100%"></a>
             </div>
         </div>
@@ -748,7 +991,7 @@
                 <strong>Catatan Sesudah:</strong>
             </div>
             <div class="py-2 py-md-3 border">
-                <?php echo $DACatatanSesudah;?>
+                <?php echo $CatatanSesudah;?>
             </div>
         </div>
         <div class="col-md-12 mt-3">
@@ -756,7 +999,7 @@
                 <strong>Gambar Sesudah</strong>
             </div>
             <div class="py-2 py-md-3">
-                <a href="<?php echo $DASesudah;?>" target="_blank"><img src="<?php echo $DASesudah;?>"
+                <a href="<?php echo $CaptureSesudah;?>" target="_blank"><img src="<?php echo $CaptureSesudah;?>"
                         style="height: 100%; width: 100%"></a>
             </div>
         </div>
