@@ -1,5 +1,5 @@
 <?php
-	error_reporting(E_ALL);
+	error_reporting(0);
 	include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 	$id			= isset($_POST['ID']) 		? $_POST['ID'] 		: NULL;
 	$modul 		= isset($_POST['modul']) 	? $_POST['modul'] 	: NULL;

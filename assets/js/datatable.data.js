@@ -1,8 +1,18 @@
 $(document).ready(function() {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        $.fn.dataTable
+            .tables({ visible: true, api: true })
+            .columns.adjust();
+    })
+    $('table.table').DataTable({
+        scrollY: 500,
+        scrollCollapse: true,
+        paging: false
+    });
 
-    $("#list-rencana").DataTable({
-        responsive: true,
-        "pagingType": "simple"
+    table = $('#list-rencana').DataTable({
+        retrieve: true,
+        paging: false
     });
     $("#list-jurnal").DataTable({
         responsive: true,

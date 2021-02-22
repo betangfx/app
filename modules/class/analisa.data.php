@@ -21,7 +21,7 @@
 			$conn = $this->db->koneksi;
 			$hasil = array();
 			if (!empty($AnalisaID)) {
-				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_simple a
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, c.Mask, c.Units, d.JangkaWaktu, e.Arah, f.Status FROM analisa_simple a
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
 						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
@@ -51,7 +51,7 @@
 			$conn = $this->db->koneksi;
 			$hasil = array();
 			if (!empty($AnalisaID)) {
-				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snd a
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, c.Mask, c.Units, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snd a
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
 						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
@@ -81,7 +81,7 @@
 			$conn = $this->db->koneksi;
 			$hasil = array();
 			if (!empty($AnalisaID)) {
-				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snr a
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, c.Mask, c.Units, d.JangkaWaktu, e.Arah, f.Status FROM analisa_snr a
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
 						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
@@ -111,7 +111,7 @@
 			$conn = $this->db->koneksi;
 			$hasil = array();
 			if (!empty($AnalisaID)) {
-				$sql = "SELECT a.*, b.Pasar, c.Symbol, d.JangkaWaktu, e.Arah, f.Status, g.Rangkaian, h.Struktur, i.Tipe, j.Pola, k.Posisi, l.Derajat FROM analisa_elliott a
+				$sql = "SELECT a.*, b.Pasar, c.Symbol, c.Mask, c.Units, d.JangkaWaktu, e.Arah, f.Status, g.Rangkaian, h.Struktur, i.Tipe, j.Pola, k.Posisi, l.Derajat FROM analisa_elliott a
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
 						LEFT JOIN pasar b ON c.PasarID = b.PasarID
 						LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID

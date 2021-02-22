@@ -369,7 +369,6 @@
 
     <script src="<?php echo $site_url;?>/assets/js/app.js"></script>
     <script src="<?php echo $site_url;?>/assets/js/datatable.data.js"></script>
-    <script src="<?php echo $site_url;?>/assets/js/tab.data.js"></script>
     <script src="<?php echo $site_url;?>/assets/js/form.js"></script>
     <script src="<?php echo $site_url;?>/assets/js/summernote.js"></script>
     <script>

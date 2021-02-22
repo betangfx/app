@@ -1,88 +1,102 @@
 <?php
-	error_reporting(0);
-	require_once ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
-	$modul 		= isset($_POST['modul']) ? $_POST['modul'] : NULL;
-	$id			= isset($_POST['ID']) ? $_POST['ID'] : NULL;
-	$UserID		= isset($_POST['UserID']) ? $_POST['UserID'] : NULL;
+	error_reporting(E_ALL);
+	include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+	$id			= isset($_POST['ID']) 		? $_POST['ID'] 		: NULL;
+	$modul 		= isset($_POST['modul']) 	? $_POST['modul'] 	: NULL;
+	$submodul	= isset($_POST['submodul']) ? $_POST['submodul']: NULL;
+	$UserID		= isset($_POST['UserID']) 	? $_POST['UserID'] 	: NULL;
 	
 	if ($modul == 'tambah_rencana') {
-		$NoRencana = NoRencana($id, $UserID);
-		$DRAnalisaID = '';
-		$DRPasar = '';
-		$DRPasarID = '';
-		$DRSymbol = '';
-		$DRSymbolID = '';
-		$DRJangkaWaktu = '';
-		$DRJangkaWaktuID = '';
-		$DRRTipeID = '';
-		$DRRAksiID = '';
-		$DRHarga = '';
-		$DRBatasRugi = '';
-		$DRAmbilUntung = '';
-		$DRRugiPoint = '';
-		$DRUntungPoint = '';
-		$CekSaldo = new settingAkun();
+		$BuatNo 		= new No();
+		$NoRencana 		= $BuatNo->NoRencana($id, $UserID);
+		$AnalisaID 		= '';
+		$Pasar 			= '';
+		$PasarID 		= '';
+		$Symbol 		= '';
+		$SymbolID 		= '';
+		$JangkaWaktu 	= '';
+		$JangkaWaktuID 	= '';
+		$RTipeID 		= '';
+		$RAksiID 		= '';
+		$Harga 			= '';
+		$BatasRugi 		= '';
+		$AmbilUntung 	= '';
+		$RugiPoint 		= '';
+		$UntungPoint 	= '';
+		$CekSaldo 		= new settingAkun();
 		foreach ($CekSaldo->cekSaldoAkun($UserID) as $row) {
-			$saldoAkun = $row['SaldoAkhir'];
-			}
-		$DRSaldo = $saldoAkun;
-		$DRResiko = '';
-		$DRLot = '';
-		$DRRasio = '';
-		$DRRugiSaldo = '';
-		$DRUntungSaldo = '';
-		$DRSebelum = '';
-		$DRSesudah = '';
-		$DRCatatanSebelum = '';
-		$DRCatatanSesudah = '';
-		$DRStatus = '1';
+		$saldoAkun 		= $row['SaldoAkhir'];
+		}
+		$Saldo 			= $saldoAkun;
+		$Resiko 		= '';
+		$Lot 			= '';
+		$Rasio 			= '';
+		$RugiSaldo 		= '';
+		$UntungSaldo 	= '';
+		$CatatanSebelum = '';
+		$CaptureSebelum = '';
+		$CatatanSesudah = '';
+		$CaptureSesudah = '';
+		$StatusID 		= '1';
 				
 	}
 	if ($modul == 'ubah_rencana' || $modul == 'lihat_rencana') {
-		$qrencana = mysqli_query($koneksi,"
-		SELECT 
-		a.RencanaID, a.AnalisaID, a.PasarID, a.SymbolID, a.JangkaWaktuID, a.RencanaTipeID, a.RencanaAksiID, a.Harga, a.BatasRugi, a.AmbilUntung, a.RugiPoint, a.UntungPoint, a.SaldoAwal, a.Resiko, a.Lot, a.Rasio, a.Kerugian, a.Keuntungan, a.CatatanSebelum, a.CatatanSesudah, a.Sebelum, a.Sesudah, a.StatusID, a.TglBuat,
-		b.Pasar AS PasarNM, c.Symbol AS SymbolNM, d.JangkaWaktu AS JangkaWaktuNM, e.RencanaTipe AS RencanaTipeNM, f.RencanaAksi AS RencanaAksiNM
-		FROM rencana a
-		LEFT JOIN pasar b ON a.PasarID = b.PasarID
-		LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
-		LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
-		LEFT JOIN rencana_tipe e ON a.RencanaTipeID = e.RencanaTipeID
-		LEFT JOIN rencana_aksi f ON a.RencanaAksiID = f.RencanaAksiID
-		WHERE a.RencanaID = '$id' AND a.UserID='$UserID'
-		");
-		while ($drencana = mysqli_fetch_array($qrencana,MYSQLI_ASSOC)) {
-			$NoRencana 			= $drencana['RencanaID'];
-			$DRAnalisaID 		= $drencana['AnalisaID'];
-			$DRPasar 			= $drencana['PasarNM'];
-			$DRPasarID 			= $drencana['PasarID'];
-			$DRSymbol 			= $drencana['SymbolNM'];
-			$DRSymbolID 		= $drencana['SymbolID'];
-			$DRJangkaWaktu 		= $drencana['JangkaWaktuNM'];
-			$DRJangkaWaktuID 	= $drencana['JangkaWaktuID'];
-			$DRRTipe 			= $drencana['RencanaTipeNM'];
-			$DRRTipeID 			= $drencana['RencanaTipeID'];
-			$DRRAksi 			= $drencana['RencanaAksiNM'];
-			$DRRAksiID 			= $drencana['RencanaAksiID'];
-			$DRHarga 			= $drencana['Harga'];
-			$DRBatasRugi 		= $drencana['BatasRugi'];
-			$DRAmbilUntung 		= $drencana['AmbilUntung'];
-			$DRRugiPoint		= $drencana['RugiPoint'];
-			$DRUntungPoint 		= $drencana['UntungPoint'];
-			$DRSaldo 			= $drencana['SaldoAwal'];
-			$DRResiko 			= $drencana['Resiko'];
-			$DRLot 				= $drencana['Lot'];
-			$DRRasio 			= $drencana['Rasio'];
-			$DRRugiSaldo 		= $drencana['Kerugian'];
-			$DRUntungSaldo 		= $drencana['Keuntungan'];
-			$DRSebelum 			= $drencana['Sebelum'];
-			$DRSesudah 			= $drencana['Sesudah'];
-			$DRCatatanSebelum 	= $drencana['CatatanSebelum'];
-			$DRCatatanSesudah 	= $drencana['CatatanSesudah'];
-			$DRStatus 			= $drencana['StatusID'];
-			$DRTglBuat 			= $drencana['TglBuat'];
+		$Rencana = new rencana_data();
+		foreach ($Rencana->rencana($id,$UserID) as $row) {
+			$NoRencana 			= $row['RencanaID'];
+			$AnalisaID 			= $row['AnalisaID'];
+			$PasarID 			= $row['PasarID'];
+			$Pasar 				= $row['Pasar'];
+			$SymbolID 			= $row['SymbolID'];
+			$Symbol 			= $row['Symbol'];
+			$JangkaWaktuID 		= $row['JangkaWaktuID'];
+			$JangkaWaktu 		= $row['JangkaWaktu'];
+			$RTipeID 			= $row['RencanaTipeID'];
+			$RTipe 				= $row['RencanaTipe'];
+			$RAksiID 			= $row['RencanaAksiID'];
+			$RAksi 				= $row['RencanaAksi'];
+			$Harga 				= $row['Harga'];
+			$BatasRugi 			= $row['BatasRugi'];
+			$AmbilUntung 		= $row['AmbilUntung'];
+			$RugiPoint			= $row['RugiPoint'];
+			$UntungPoint 		= $row['UntungPoint'];
+			$Saldo 				= $row['SaldoAwal'];
+			$Resiko 			= $row['Resiko'];
+			$Lot 				= $row['Lot'];
+			$Rasio 				= $row['Rasio'];
+			$RugiSaldo 			= $row['Kerugian'];
+			$UntungSaldo 		= $row['Keuntungan'];
+			$CatatanSebelum 	= $row['CatatanSebelum'];
+			$CatatanSesudah 	= $row['CatatanSesudah'];
+			$CaptureSebelum 	= $row['CaptureSebelum'];
+			$CaptureSesudah 	= $row['CaptureSesudah'];
+			$StatusID 			= $row['StatusID'];
+			$TglBuat 			= $row['TglBuat'];
 		}
-	} 
+	}
+	?>
+	<div class="row">
+		<!-- Form Hidden Value -->
+		<div class="col-md-12">
+			<div class="form-group row">
+				<div class="col-sm-9">
+					<div class="input-group">
+						<input type="hidden" class="form-control" id="ID" name="ID" value="<?php echo $id;?>">
+					</div>
+					<div class="input-group">
+						<input type="hidden" class="form-control" id="modul" name="modul" value="<?php echo $modul;?>">
+					</div>
+					<div class="input-group">
+						<input type="hidden" class="form-control" id="submodul" name="submodul" value="<?php echo $submodul;?>">
+					</div>
+					<div class="input-group">
+						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $UserID;?>">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php  
 	if ($modul == 'tambah_rencana' || $modul == 'ubah_rencana') {
 	?>
 	<div class="row">
@@ -94,9 +108,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">@</span>
 						</div>
-						<input type="hidden" id="modul" name="modul" value="<?php echo $modul;?>">
-						<input type="hidden" id="UserID" name="UserID" value="<?php echo $UserID;?>" readonly>
-						<input type="text" class="form-control" id="RencanaID" name="Rencana" value="<?php echo $NoRencana;?>" readonly>
+						<input type="text" class="form-control" id="RencanaID" name="RencanaID" value="<?php echo $NoRencana;?>" readonly>
 					</div>
 				</div>
 			</div>
@@ -105,30 +117,59 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Dasar Rencana</label>
 				<div class="col-sm-8">
-					<select id="AnalisaID" name="Analisa" class="form-control" required >
+					<select id="AnalisaID" name="AnalisaID" class="form-control select2" data-toggle="select2" required >
 						<option value="">Analisa No...</option>
-						<option value="">Tanpa Analisa</option>
-						<?php
-							$qsanalisa = mysqli_query($koneksi,"SELECT * FROM analisa WHERE UserID='$UserID' AND StatusID='1' ORDER BY AnalisaID DESC");
-							while ($dsanalisa = mysqli_fetch_array($qsanalisa,MYSQLI_ASSOC)) {
-								$DSAnalisaID	=	$dsanalisa['AnalisaID'];
-							?>
-							<option value="<?php echo $DSAnalisaID;?>" <?php if ($DRAnalisaID == $DSAnalisaID) { echo "selected='selected'";} ?>><?php echo $DSAnalisaID;?></option>
+						<optgroup label="Analisa Sederhana">
+							<?php 
+								$data_simple = new rencana_data();
+								foreach ($data_simple->analisa_simple($UserID) as $row) {
+								?>
+							<option value="<?php echo $row['AnalisaID'];?>" <?php if ($AnalisaID == $row['AnalisaID']) {echo 'selected="selected"';}?> ><?php echo $row['AnalisaID'];?></option>
 							<?php
-							}
-						?>
+								}
+								?>
+						</optgroup>
+						<optgroup label="Analisa Penawaran & Permintaan">
+						<?php 
+								$data_snd = new rencana_data();
+								foreach ($data_snd->analisa_snd($UserID) as $row) {
+								?>
+							<option value="<?php echo $row['AnalisaID'];?>" <?php if ($AnalisaID == $row['AnalisaID']) {echo 'selected="selected"';}?> ><?php echo $row['AnalisaID'];?></option>
+							<?php
+								}
+								?>
+						</optgroup>
+						<optgroup label="Analisa Support & Resisten">
+						<?php 
+								$data_snr = new rencana_data();
+								foreach ($data_snr->analisa_snr($UserID) as $row) {
+								?>
+							<option value="<?php echo $row['AnalisaID'];?>" <?php if ($AnalisaID == $row['AnalisaID']) {echo 'selected="selected"';}?> ><?php echo $row['AnalisaID'];?></option>
+							<?php
+								}
+								?>
+						</optgroup>
+						<optgroup label="Analisa Gelombang Elliott">
+						<?php 
+								$data_elliott = new rencana_data();
+								foreach ($data_elliott->analisa_elliott($UserID) as $row) {
+								?>
+							<option value="<?php echo $row['AnalisaID'];?>" <?php if ($AnalisaID == $row['AnalisaID']) {echo 'selected="selected"';}?> ><?php echo $row['AnalisaID'];?></option>
+							<?php
+								}
+								?>
+						</optgroup>
+					
 					</select>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-6"> <!-- Pasar -->
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Pasar</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-center" id="Pasar" value="<?php echo $DRPasar;?>" readonly>
-					<input type="hidden" id="PasarID" name="Pasar" value="<?php echo $DRPasarID;?>">
+					<input type="text" class="form-control text-center" id="Pasar" value="<?php echo $Pasar;?>" readonly>
+					<input type="hidden" id="PasarID" name="PasarID" value="<?php echo $PasarID;?>">
 				</div>
 			</div>
 		</div>
@@ -136,9 +177,9 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Symbol</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-center" id="Symbol" value="<?php echo $DRSymbol;?>" readonly>
-					<input type="hidden" id="SymbolID" name="Symbol" value="<?php echo $DRSymbolID;?>">
-					<input type="hidden" id="SymbolUnit" value="">
+					<input type="text" class="form-control text-center" id="Symbol" value="<?php echo $Symbol;?>" readonly>
+					<input type="hidden" id="SymbolID" name="SymbolID" value="<?php echo $SymbolID;?>">
+					<input type="hidden" id="SymbolUnit" value="<?php echo $SymbolUnits;?>">
 				</div>
 			</div>
 		</div>
@@ -146,8 +187,8 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Jangka Waktu</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-center" id="JangkaWaktu" value="<?php echo $DRJangkaWaktu;?>" readonly>
-					<input type="hidden" id="JangkaWaktuID" name="JangkaWaktu" value="<?php echo $DRJangkaWaktuID;?>" readonly>
+					<input type="text" class="form-control text-center" id="JangkaWaktu" value="<?php echo $JangkaWaktu;?>" readonly>
+					<input type="hidden" id="JangkaWaktuID" name="JangkaWaktuID" value="<?php echo $JangkaWaktuID;?>" readonly>
 				</div>
 			</div>
 		</div>
@@ -155,15 +196,15 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Rencana Transaksi</label>
 				<div class="col-sm-8">
-					<select id="RencanaTipeID" name="RencanaTipe" class="form-control" required >
+					<select id="RencanaTipeID" name="RencanaTipeID" class="form-control" required >
 						<option value=""></option>
 						<?php
 							$qsrtipe = mysqli_query($koneksi,"SELECT * FROM rencana_tipe");
-							while ($drtipe = mysqli_fetch_array($qsrtipe,MYSQLI_ASSOC)) {
-								$DSRTipeID	=	$drtipe['RencanaTipeID'];
-								$DSRTipe	=	$drtipe['RencanaTipe'];
+							while ($tipe = mysqli_fetch_array($qsrtipe,MYSQLI_ASSOC)) {
+								$DSRTipeID	=	$tipe['RencanaTipeID'];
+								$DSRTipe	=	$tipe['RencanaTipe'];
 							?>
-							<option value="<?php echo $DSRTipeID;?>" <?php if ($DRRTipeID == $DSRTipeID) { echo "selected='selected'";} ?>><?php echo $DSRTipe;?></option>
+							<option value="<?php echo $DSRTipeID;?>" <?php if ($RTipeID == $DSRTipeID) { echo "selected='selected'";} ?>><?php echo $DSRTipe;?></option>
 							<?php 
 							}
 						?>
@@ -175,7 +216,7 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Rencana Aksi</label>
 				<div class="col-sm-8">
-					<select id="RencanaAksiID" name="RencanaAksi" class="form-control" required >
+					<select id="RencanaAksiID" name="RencanaAksiID" class="form-control" required >
 						<option value=""></option>
 						<?php
 							$qsraksi = mysqli_query($koneksi,"SELECT * FROM rencana_aksi");
@@ -183,7 +224,7 @@
 								$DSRAksiID	=	$dsraksi['RencanaAksiID'];
 								$DSRAksi	=	$dsraksi['RencanaAksi'];
 							?>
-							<option value="<?php echo $DSRAksiID;?>" <?php if ($DRRAksiID == $DSRAksiID) { echo "selected='selected'";} ?>><?php echo $DSRAksi;?></option>
+							<option value="<?php echo $DSRAksiID;?>" <?php if ($RAksiID == $DSRAksiID) { echo "selected='selected'";} ?>><?php echo $DSRAksi;?></option>
 							<?php 
 							}
 						?>
@@ -195,7 +236,7 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Harga</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-right" id="HargaID" name="Harga" value="<?php echo $DRHarga;?>" required>
+					<input type="text" class="form-control text-right" id="HargaID" name="Harga" value="<?php echo $Harga;?>" required>
 				</div>
 			</div>
 		</div>
@@ -203,7 +244,7 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Batas Rugi</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-right" id="BatasRugiID" name="BatasRugi" value="<?php echo $DRBatasRugi;?>" required>
+					<input type="text" class="form-control text-right" id="BatasRugiID" name="BatasRugi" value="<?php echo $BatasRugi;?>" required>
 				</div>
 			</div>
 		</div>
@@ -211,7 +252,7 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Ambil Untung</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-right" id="AmbilUntungID" name="AmbilUntung" value="<?php echo $DRAmbilUntung;?>" required>
+					<input type="text" class="form-control text-right" id="AmbilUntungID" name="AmbilUntung" value="<?php echo $AmbilUntung;?>" required>
 				</div>
 			</div>
 		</div>
@@ -223,7 +264,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">($)</span>
 						</div>
-						<input type="text" class="form-control text-right" id="SaldoID" name="Saldo" value="<?php echo $DRSaldo;?>" required>
+						<input type="text" class="form-control text-right" id="SaldoID" name="Saldo" value="<?php echo $Saldo;?>" required>
 					</div>
 				</div>
 			</div>
@@ -236,7 +277,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Persentase</span>
 						</div>
-						<input type="text" class="form-control text-right" id="ResikoID" name="Resiko" value="<?php echo $DRResiko;?>">
+						<input type="text" class="form-control text-right" id="ResikoID" name="Resiko" value="<?php echo $Resiko;?>">
 						<div class="input-group-append">
 							<span class="input-group-text">(%)</span>
 						</div>
@@ -249,7 +290,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Rekomendasi Lot </label>
 				<div class="col-sm-8">
 					<div class="input-group">
-						<input type="text" class="form-control text-right" id="LotID" name="Lot" value="<?php echo $DRLot;?>" readonly>
+						<input type="text" class="form-control text-right" id="LotID" name="Lot" value="<?php echo $Lot;?>" readonly>
 						<div class="input-group-append">
 							<span class="input-group-text">Lot</span>
 						</div>
@@ -265,7 +306,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Rugi : Untung</span>
 						</div>
-						<input type="text" class="form-control text-center" id="RasioID" name="Rasio" value="<?php echo $DRRasio;?>" readonly>
+						<input type="text" class="form-control text-center" id="RasioID" name="Rasio" value="<?php echo $Rasio;?>" readonly>
 					</div>
 				</div>
 			</div>
@@ -275,7 +316,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Kerugian</label>
 				<div class="col-sm-8">
 					<div class="input-group">
-						<input type="text" class="form-control text-right" id="RugiPointID" name="RugiPoint" value="<?php echo $DRRugiPoint;?>" readonly>
+						<input type="text" class="form-control text-right" id="RugiPointID" name="RugiPoint" value="<?php echo $RugiPoint;?>" readonly>
 						<div class="input-group-append">
 							<span class="input-group-text">Point</span>
 						</div>
@@ -288,7 +329,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Keuntungan</label>
 				<div class="col-sm-8">
 					<div class="input-group">
-						<input type="text" class="form-control text-right" id="UntungPointID" name="UntungPoint" value="<?php echo $DRUntungPoint;?>" readonly>
+						<input type="text" class="form-control text-right" id="UntungPointID" name="UntungPoint" value="<?php echo $UntungPoint;?>" readonly>
 						<div class="input-group-append">
 							<span class="input-group-text">Point</span>
 						</div>
@@ -304,7 +345,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">($)</span>
 						</div> 
-						<input type="text" class="form-control text-right" id="RugiSaldoID" name="RugiSaldo" value="<?php echo $DRRugiSaldo;?>" readonly>
+						<input type="text" class="form-control text-right" id="RugiSaldoID" name="RugiSaldo" value="<?php echo $RugiSaldo;?>" readonly>
 					</div>
 				</div>
 			</div>
@@ -317,60 +358,52 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">($)</span>
 						</div>
-						<input type="text" class="form-control text-right" id="UntungSaldoID" name="UntungSaldo" value="<?php echo $DRUntungSaldo;?>" readonly>
+						<input type="text" class="form-control text-right" id="UntungSaldoID" name="UntungSaldo" value="<?php echo $UntungSaldo;?>" readonly>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div id="RekomendasiShow" class="col-md-12">
 		</div>
 	</div>
-	<div id="Attribute" class="row" <?php //if ($modul == 'ubah_analisa') { echo 'style="display:flex"';} else { echo 'style="display:none"';}?>>
+	<div class="row">
 		<div class="col-md-6">
-			<div class="col-md-12 px-0">
-				<div class="mb-2">
-					<strong>Catatan Sebelum:</strong>
-				</div>
-				<div class="input-group col-sm-12 mb-2 px-0">
-						<textarea class="form-control" rows="4" placeholder="" id="CatatanSebelumID" name="CatatanSebelum" <?php if ($modul == 'ubah_rencana') { echo 'readonly';} else { echo 'required';} ?>><?php echo $DRCatatanSebelum;?></textarea>
-				</div>
+			<div class="form-group">
+				<label for="CatatanSebelumID">Catatan</label>
+				<textarea id="CatatanSebelumID" name="CatatanSebelum" class="form-control"><?php echo $CatatanSebelum;?></textarea>
 			</div>
-			<div class="col-md-12 mb-2 px-0">
+			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<button type="button" class="btn btn-outline-primary">Dok. Sebelum</button>
+						<button type="button" class="btn btn-outline-primary">Capture</button>
 					</div>
-					<input type="text" class="form-control" id="SebelumID" name="Sebelum" value="<?php echo $DRSebelum;?>" <?php if ($modul == 'ubah_rencana') { echo 'readonly';} else { echo 'required';} ?>>
+					<input type="text" class="form-control" id="CaptureSebelumID" name="CaptureSebelum" value="<?php echo $CaptureSebelum;?>">
 				</div>
 			</div>
 		</div>
 		<div class="col-md-6">
-			<div class="col-md-12 px-0">
-				<div class="mb-2">
-					<strong>Catatan Sesudah:</strong>
-				</div>
-				<div class="input-group col-sm-12 mb-2 px-0">
-						<textarea class="form-control" rows="4" placeholder="" id="CatatanSesudahID" name="CatatanSesudah" <?php if ($modul == 'tambah_rencana') { echo 'readonly';} else { echo 'required';} ?>><?php echo $DRCatatanSesudah;?></textarea>
-				</div>
+			<div class="form-group">
+				<label for="CatatanSesudahID">Catatan</label>
+				<textarea id="CatatanSesudahID" name="CatatanSesudah" class="form-control"><?php echo $CatatanSesudah;?></textarea>
 			</div>
-			<div class="col-md-12 mb-2 px-0">
+			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<button type="button" class="btn btn-outline-primary">Dok. Sesudah</button>
+						<button type="button" class="btn btn-outline-primary">Capture</button>
 					</div>
-					<input type="text" class="form-control" id="SesudahID" name="Sesudah" value="<?php echo $DRSesudah;?>" <?php if ($modul == 'tambah_rencana') { echo 'readonly';} else { echo 'required';} ?>>
+					<input type="text" class="form-control" id="CaptureSesudahID" name="CaptureSesudah" value="<?php echo $CaptureSesudah;?>">
 				</div>
 			</div>
 		</div>
 		<div class="col-md-12 text-center">
 			<label class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" id="Status" name="Status" value="1" <?php if ($DRStatus == '1') { echo 'checked="checked"';}?>>
+				<input class="form-check-input" type="radio" id="StatusID" name="StatusID" value="1"
+					<?php if ($StatusID == '1') { echo 'checked="checked"';}?>>
 				<span class="form-check-label">
 					Terbuka
 				</span>
 			</label>
 			<label class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" id="Status" name="Status" value="2" <?php if ($DRStatus == '2') { echo 'checked="checked"';}?>>
+				<input class="form-check-input" type="radio" id="StatusID" name="StatusID" value="2"
+					<?php if ($StatusID == '2') { echo 'checked="checked"';}?>>
 				<span class="form-check-label">
 					Ditutup
 				</span>
@@ -381,23 +414,6 @@
 	}
 	if ($modul == 'hapus_rencana') {
 	?>
-	<div class="row">
-		<div class="col-md-12"> <!-- Data -->
-			<div class="form-group row">
-				<div class="col-sm-9">
-					<div class="input-group">
-						<input type="hidden" id="modul" name="modul" value="<?php echo $modul;?>">
-					</div>
-					<div class="input-group">
-						<input type="hidden" id="UserID" name="UserID" value="<?php echo $UserID;?>">
-					</div>
-					<div class="input-group">
-						<input type="hidden" id="RencanaID" name="RencanaID" value="<?php echo $id;?>">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-md-12 text-center"> 
 			Hapus Rencana dengan ID : <?php echo $id;?> ?
@@ -421,7 +437,7 @@
 					</div>
 					<div class="col-md-6 text-md-right">
 						<div class="text-muted">Tanggal Buat</div>
-						<strong><?php echo $DRTglBuat;?></strong>
+						<strong><?php echo $TglBuat;?></strong>
 					</div>
 				</div>
 				
@@ -437,80 +453,80 @@
 					<tbody>
 						<tr>
 							<td>Pasar</td>
-							<td class="text-right"><?php echo $DRPasar;?></td>
+							<td class="text-right"><?php echo $Pasar;?></td>
 						</tr>
 						<tr>
 							<td>Symbol</td>
-							<td class="text-right"><?php echo $DRSymbol;?></td>
+							<td class="text-right"><?php echo $Symbol;?></td>
 						</tr>
 						<tr>
 							<td>Jangka Waktu</td>
-							<td class="text-right"><?php echo $DRJangkaWaktu;?></td>
+							<td class="text-right"><?php echo $JangkaWaktu;?></td>
 						</tr>
 						<tr>
 							<td><strong>Tipe Transaksi</strong></td>
-							<td class="text-right"><strong><?php echo $DRRTipe;?></strong></td>
+							<td class="text-right"><strong><?php echo $RTipe;?></strong></td>
 						</tr>
 						<tr>
 							<td><strong>Aksi</strong></td>
-							<td class="text-right"><strong><?php echo $DRRAksi;?></strong></td>
+							<td class="text-right"><strong><?php echo $RAksi;?></strong></td>
 						</tr>
 						<tr>
 							<td><strong>Dasar Analisa</strong></td>
-							<td class="text-right"><strong><?php echo $DRAnalisaID;?></strong></td>
+							<td class="text-right"><strong><?php echo $AnalisaID;?></strong></td>
 						</tr>
 					</tbody>
 				</table>
 				<table class="table table-striped table-sm">
 					<thead>
 						<tr>
-							<th colspan="2" class="text-center">Detail <?php echo $DRRAksi;?></th>
+							<th colspan="2" class="text-center">Detail <?php echo $RAksi;?></th>
 						</tr>
 					</thead>
 					<tbody>
 							<tr>
 								<td class="text-sm">Saldo</td>
-								<td class="text-right text-sm">$ <?php echo $DRSaldo;?></td>
+								<td class="text-right text-sm">$ <?php echo $Saldo;?></td>
 							</tr>
 							<tr>
 								<td class="text-sm">Resiko</td>
-								<td class="text-right text-sm"><?php echo $DRResiko;?>%</td>
+								<td class="text-right text-sm"><?php echo $Resiko;?>%</td>
 							</tr>
 							<tr>
 								<td class="text-sm">Jumlah Lot</td>
-								<td class="text-right text-sm"><strong><?php echo $DRLot;?></strong></td>
+								<td class="text-right text-sm"><strong><?php echo $Lot;?></strong></td>
 							</tr>
 							<tr>
 								<td class="text-sm">Harga</td>
-								<td class="text-right text-sm"><?php echo $DRHarga;?></td>
+								<td class="text-right text-sm"><?php echo $Harga;?></td>
 							</tr>
 							<tr>
 								<td class="text-sm">Batas Rugi</td>
-								<td class="text-right text-sm"><?php echo $DRBatasRugi;?></td>
+								<td class="text-right text-sm"><?php echo $BatasRugi;?></td>
 							</tr>
 							<tr>
 								<td class="text-sm">Ambil Untung</td>
-								<td class="text-right text-sm"><?php echo $DRAmbilUntung;?></td>
+								<td class="text-right text-sm"><?php echo $AmbilUntung;?></td>
 							</tr>
 							<tr>
 								<td class="text-sm">Kerugian</td>
-								<td class="text-right text-sm"><?php echo $DRRugiPoint;?> Point</td>
+								<td class="text-right text-sm"><?php echo $RugiPoint;?> Point</td>
 							</tr>
 							<tr>
 								<td class="text-sm">Keuntungan</td>
-								<td class="text-right text-sm"><?php echo $DRUntungPoint;?> Point</td>
+								<td class="text-right text-sm"><?php echo $UntungPoint;?> Point</td>
 							</tr>
 							<tr>
 								<td class="text-sm">Kerugian</td>
-								<td class="text-right text-sm">$ <?php echo $DRRugiSaldo;?></td>
+								<td class="text-right text-sm">$ <?php echo $RugiSaldo;?></td>
 							</tr>
 							<tr>
 								<td class="text-sm">Keuntungan</td>
-								<td class="text-right text-sm">$ <?php echo $DRUntungSaldo;?></td>
+								<td class="text-right text-sm">$ <?php echo $UntungSaldo;?></td>
 							</tr>
 							<tr>
 								<td class="text-sm">Rasio</td>
-								<td class="text-right text-sm"><?php echo $DRRasio;?></td>
+								<td class="text-right text-sm"><?php echo $Rasio;?></td>
 							</tr>
 					</tbody>
 				</table>
@@ -523,7 +539,7 @@
 					<strong>Catatan Sebelum:</strong>
 				</div>
 				<div class="py-2 py-md-3 border">
-					<?php echo $DRCatatanSebelum;?>
+					<?php echo $CatatanSebelum;?>
 				</div>
 			</div>
 			<div class="col-md-12">
@@ -531,7 +547,7 @@
 					<strong>Gambar Sebelum</strong>
 				</div>
 				<div class="py-2 py-md-3">
-					<a href="<?php echo $DRSebelum;?>" target="_blank"><img src="<?php echo $DRSebelum;?>" style="height: 100%; width: 100%"></a>
+					<a href="<?php echo $CaptureSebelum;?>" target="_blank"><img src="<?php echo $CaptureSebelum;?>" style="height: 100%; width: 100%"></a>
 				</div>
 			</div>
 		</div>
@@ -541,7 +557,7 @@
 					<strong>Catatan Sesudah:</strong>
 				</div>
 				<div class="py-2 py-md-3 border">
-					<?php echo $DRCatatanSesudah;?>
+					<?php echo $CatatanSesudah;?>
 				</div>
 			</div>
 			<div class="col-md-12">
@@ -549,7 +565,7 @@
 					<strong>Gambar Sesudah</strong>
 				</div>
 				<div class="py-2 py-md-3">
-					<a href="<?php echo $DRSesudah;?>" target="_blank"><img src="<?php echo $DRSesudah;?>" style="height: 100%; width: 100%"></a>
+					<a href="<?php echo $CaptureSesudah;?>" target="_blank"><img src="<?php echo $CaptureSesudah;?>" style="height: 100%; width: 100%"></a>
 				</div>
 			</div>
 		</div>
@@ -577,10 +593,26 @@
 	<?php 
 	}
 ?>
-</form>
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		$('.select2').each(function() {
+			$(this)
+				.wrap('<div class=\'position-relative\'></div>')
+				.select2({
+					placeholder: 'Select value',
+					dropdownParent: $(this).parent()
+				});
+			});
+		$('#CatatanSebelumID, #CatatanSesudahID').summernote({
+        placeholder: '',
+        tabsize: 2,
+        height: 150,
+        toolbar: [
+            ['font', ['bold', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ]
+		});
 		$('#ResikoID').mask('99.99');
 		
 		// trigger function
@@ -647,18 +679,18 @@
 			var getData 	= 'analisaInfo';
 			$.ajax({
 				type:'POST',
-				url:'../page/rencana/rencana.data.php',
+				url:'../modules/main/rencana/rencana.process.php',
 				data:{'AnalisaID' :AnalisaID, 'UserID':UserID, 'getData': getData},
 				dataType: 'json',
 				success:function(data){
 					$('#Pasar, #PasarID, #Symbol, #SymbolID, #SymbolUnit, #JangkaWaktu, #JangkaWaktuID, #HargaID, #BatasRugiID, #AmbilUntungID, #RugiPointID, #UntungPointID').val('');
-					$('#Pasar').val(data[0].PasarNM);
-					$('#PasarID').val(data[0].Pasar);
-					$('#Symbol').val(data[0].SymbolNM);
-					$('#SymbolID').val(data[0].Symbol);
+					$('#PasarID').val(data[0].PasarID);
+					$('#Pasar').val(data[0].Pasar);
+					$('#SymbolID').val(data[0].SymbolID);
+					$('#Symbol').val(data[0].Symbol);
 					$('#SymbolUnit').val(data[0].Units);
-					$('#JangkaWaktu').val(data[0].JangkaWaktuNM);
-					$('#JangkaWaktuID').val(data[0].JangkaWaktu);
+					$('#JangkaWaktuID').val(data[0].JangkaWaktuID);
+					$('#JangkaWaktu').val(data[0].JangkaWaktu);
 					$('#HargaID').mask(data[0].Mask); 
 					$('#BatasRugiID').mask(data[0].Mask); 
 					$('#AmbilUntungID').mask(data[0].Mask);
@@ -672,7 +704,7 @@
 			var getData 	= 'rencanaaksi';
 			$.ajax({
 				type:'POST',
-				url:'../page/rencana/rencana.data.php',
+				url:'../modules/main/rencana/rencana.process.php',
 				data:{'ID':RencanaTipeID, 'getData': getData},
 				dataType: 'json',
 				success:function(data){
@@ -788,10 +820,10 @@
 			var RencanaID = $('#RencanaID').val();
 			$.ajax({
 				type:'POST',
-				url:'../page/rencana/rencana.process.php',
-				data:{'RencanaID':RencanaID, 'UserID': UserID, 'modul': modul},
+				url:'../modules/main/rencana/rencana.process.php',
+				data:{'ID':RencanaID, 'UserID': UserID, 'modul': modul},
 				success:function(hasil){
-					if (hasil=='sukses_ubah_data' || hasil=='sukses_ubah_data ' || hasil=='sukses_ubah_data	') {
+					if (hasil=='sukses	') {
 						location.href = "/index.php?page=rencana"
 						} else {
 						$('#modal-data').html(hasil);
@@ -799,7 +831,7 @@
 				}
 			})
 		});
-		$("#myform").validate({
+		$("#newForm").validate({
 			errorElement: 'div',
 			errorClass: 'help-block',
 			focusInvalid: true,
@@ -817,12 +849,12 @@
 				var formData  = new FormData(form);
 				$.ajax({
 					type : 'POST',
-					url : '../page/rencana/rencana.process.php',
+					url : '../modules/main/rencana/rencana.process.php',
 					processData: false,
 					contentType: false,
 					data: formData,
 					success : function(hasil){
-						if (hasil=='sukses_ubah_data' || hasil=='sukses_ubah_data ' || hasil=='sukses_ubah_data	') {
+						if (hasil=='sukses	') {
 							location.href = "/index.php?page=rencana"
 							} else {
 							$('#modal-data').html(hasil);

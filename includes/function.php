@@ -146,7 +146,33 @@
 				echo 'gagal tambah analisaid';
 			}
 		}
-
+		function NoRencana($req, $UserID) {
+			$this->db = new database();
+			$conn = $this->db->koneksi;
+			// Check No
+			$today 		=	date('Y-m-d');
+			$sql 	= "SELECT MAX(RencanaID) AS RencanaID FROM rencana WHERE TglBuat LIKE '$today%' AND UserBuat = '$UserID'"; 
+			$query 	= 	mysqli_query($conn,$sql);
+			while($result = mysqli_fetch_array($query)){
+				$RencanaID = $result['RencanaID'];
+			}
+			//Buat No
+			$SubStrNo		= substr($RencanaID, 7, 2);
+			$NoUrutRencana 	= (int)$SubStrNo;
+			$NoUrutRencana++;
+			$pref 			= 'R';
+			$day			=	date('ymd');
+			$new_id			=	$pref.$day.sprintf('%02s', $NoUrutRencana);
+			
+			//Masukan ke DB
+			$sql 	= "INSERT INTO rencana (RencanaID, UserBuat) VALUES ('$new_id', '$UserID')";
+			$result		= 	mysqli_query($conn, $sql);
+			if($result) {
+				return $new_id;
+			} else {
+				echo 'gagal tambah rencanaid';
+			}
+		}
 	}
 	// function NoAnalisa($req, $UserID) {
 	// 	if ($req == 'New' && $UserID != '') {
