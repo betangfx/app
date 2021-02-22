@@ -69,6 +69,7 @@ $(document).ready(function() {
         }]
     });
     table = $('#list_ringkasan_akun, #list_info_akun').DataTable({
+        retrieve: true,
         searching: false,
         "paging": false,
         "info": false,
@@ -80,6 +81,7 @@ $(document).ready(function() {
         }]
     });
     table = $("#list_tambah_dana, #list_tarik_dana").DataTable({
+        retrieve: true,
         responsive: true,
         "pagingType": "simple"
     });
