@@ -1,5 +1,4 @@
 <?php
-	
 	include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 	$id			= isset($_POST['ID']) 		? $_POST['ID'] 		: NULL;
 	$modul 		= isset($_POST['modul']) 	? $_POST['modul'] 	: NULL;
@@ -7,13 +6,13 @@
 	$UserID		= isset($_POST['UserID']) 	? $_POST['UserID'] 	: NULL;
 	
 	//pre
-	if ($modul == 'tambah_setting-akun' && $submodul == 'infoakun') {
+	if ($modul == 'tambah_akun' && $submodul == 'infoakun') {
 		$AkunID		=	'';
 		$BrokerID	=	'';
 		$NoAkun		=	'';
 		$Leverage	=	'';
 	}
-	if (($modul == 'ubah_setting-akun' && $submodul == 'infoakun') || ($modul == 'hapus_setting-akun' && $submodul == 'infoakun')) {
+	if (($modul == 'ubah_akun' && $submodul == 'infoakun') || ($modul == 'hapus_akun' && $submodul == 'infoakun')) {
 		$infoAkun = new settingAkun();
 		foreach ($infoAkun->infoAkun('read','akunid','brokerid','noakun', 'leverage',$UserID) as $row) {
 			$AkunID		=	$row['AkunID'];
@@ -22,13 +21,13 @@
 			$Leverage	=	$row['Leverage'];
 		}
 	}
-	if ($modul == 'tambah_setting-akun' && $submodul == 'transaksi') {
+	if ($modul == 'tambah_akun' && $submodul == 'transaksi') {
 		$AkunID			= $id;
 		$TransaksiID	= '';
 		$NominalID		= '';
 		$TglTransaksi	= '';
 	}
-	if (($modul == 'ubah_setting-akun' && $submodul == 'transaksi') || ($modul == 'hapus_setting-akun' && $submodul == 'transaksi')) {
+	if (($modul == 'ubah_akun' && $submodul == 'transaksi') || ($modul == 'hapus_akun' && $submodul == 'transaksi')) {
 		$infoTransaksi = new settingAkun();
 		foreach ($infoTransaksi->infoTransaksi('read','', '', '', '', '', $UserID) as $row) {
 		$AkunID			= $row['AkunID'];
@@ -38,7 +37,7 @@
 		}
 	}
 	// form body
-	if (($modul == 'tambah_setting-akun' && $submodul == 'infoakun') || ($modul == 'ubah_setting-akun' && $submodul == 'infoakun')) {
+	if (($modul == 'tambah_akun' && $submodul == 'infoakun') || ($modul == 'ubah_akun' && $submodul == 'infoakun')) {
 	?>
 	<div class="row"> <!-- hidden -->
 		<div class="col-md-12"> <!-- Data -->
@@ -101,7 +100,7 @@
 	<?php 
 	} 	
 	
-	if (($modul == 'tambah_setting-akun' && $submodul == 'transaksi') || ($modul == 'ubah_setting-akun' && $submodul == 'transaksi')) {
+	if (($modul == 'tambah_akun' && $submodul == 'transaksi') || ($modul == 'ubah_akun' && $submodul == 'transaksi')) {
 	?>
 	<div class="row"> <!-- hidden -->
 		<div class="col-md-12"> <!-- Data -->
@@ -169,7 +168,7 @@
 	<?php 
 	} 
 	
-	if ($modul == 'hapus_setting-akun' && $submodul == 'infoakun') {
+	if ($modul == 'hapus_akun' && $submodul == 'infoakun') {
 	?>
 	<div class="row"> <!-- hidden -->
 		<div class="col-md-12"> <!-- Data -->
@@ -200,7 +199,7 @@
 	<?php
 		
 	}
-	if ($modul == 'hapus_setting-akun' && $submodul == 'transaksi') {
+	if ($modul == 'hapus_akun' && $submodul == 'transaksi') {
 	?>
 	<div class="row"> <!-- hidden -->
 		<div class="col-md-12"> <!-- Data -->
@@ -232,22 +231,22 @@
 ?>
 ---
 <?php // form submit
-	if ($modul == 'tambah_setting-akun') {
+	if ($modul == 'tambah_akun') {
 	?>
 	<button type="button" id="batal" class="btn btn-danger" data-dismiss="modal">Batal</button>
 	<button type="submit" id="submit" class="btn btn-primary">Simpan</button>
 </form>
 <?php 
 }
-if ($modul == 'ubah_setting-akun') {
+if ($modul == 'ubah_akun') {
 ?>
 <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
 <button type="submit" class="btn btn-primary">Simpan</button>
 <?php
 }
-if ($modul == 'lihat_setting-akun') {
+if ($modul == 'lihat_akun') {
 }
-if ($modul == 'hapus_setting-akun') {
+if ($modul == 'hapus_akun') {
 ?>
 <button type="submit" class="btn btn-danger">Ya. Hapus!</button>
 </form>
@@ -282,7 +281,7 @@ if ($modul == 'hapus_setting-akun') {
 				var formData  = new FormData(form);
 				$.ajax({
 					type : 'POST',
-					url : '../modules/setting-akun/setting-akun.process.php',
+					url : '../modules/setting/akun/akun.process.php',
 					processData: false,
 					contentType: false,
 					data: formData,
@@ -291,7 +290,7 @@ if ($modul == 'hapus_setting-akun') {
 							alert('Saat ini hanya mendukung 1 akun trading / user');
 						}
 						if (hasil=='sukses') {
-							location.href = "/index.php?page=setting-akun"
+							location.href = "/index.php?page=akun"
 							} else {
 							$('#modal-data').html(hasil);
 						}
