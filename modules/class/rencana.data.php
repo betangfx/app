@@ -5,7 +5,7 @@
 			$conn = $this->db->koneksi;
 			$hasil = array();
 			if (!empty($RencanaID)) {
-				$sql = "SELECT a.*, b.PasarID, b.Pasar, c.Symbol, d.JangkaWaktu, e.RencanaTipe, f.RencanaAksi
+				$sql = "SELECT a.*, b.PasarID, b.Pasar, c.Symbol, c.Mask, c.Units, d.JangkaWaktu, e.RencanaTipe, f.RencanaAksi
 						FROM rencana a
 						LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
 						LEFT JOIN pasar b ON c.PasarID = b.PasarID
@@ -89,8 +89,7 @@
 			}
 			return $hasil;
 		}	
-		
-		
+			
 		function analisa_elliott($UserID) {
 			$this->db = new database();
 			$conn = $this->db->koneksi;

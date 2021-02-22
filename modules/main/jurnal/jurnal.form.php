@@ -1,98 +1,116 @@
 <?php
-	error_reporting(0);
-	require_once ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
-	$modul 		= isset($_POST['modul']) ? $_POST['modul'] : NULL;
-	$id			= isset($_POST['ID']) ? $_POST['ID'] : NULL;
-	$UserID		= isset($_POST['UserID']) ? $_POST['UserID'] : NULL;
+	error_reporting(E_ALL);
+	include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+	$id			= isset($_POST['ID']) 		? $_POST['ID'] 		: NULL;
+	$modul 		= isset($_POST['modul']) 	? $_POST['modul'] 	: NULL;
+	$submodul	= isset($_POST['submodul']) ? $_POST['submodul']: NULL;
+	$UserID		= isset($_POST['UserID']) 	? $_POST['UserID'] 	: NULL;
 	
 	if ($modul == 'tambah_jurnal') {
-		$NoJurnal = NoJurnal($id, $UserID);
-		$DJRencanaID = '';
-		$DJPasar = '';
-		$DJPasarID = '';
-		$DJSymbol = '';
-		$DJSymbolID = '';
-		$DJJangkaWaktu = '';
-		$DJJangkaWaktuID = '';
-		$DJRAksi = '';
-		$DJRAksiID = '';
-		$DJWMasuk = '';
-		$DJWKeluar = '';
-		$DJHargaMasuk = '';
-		$DJBatasRugi = '';
-		$DJAmbilUntung = '';
-		$DJRugiPoint = '';
-		$DJUntungPoint = '';
-		$DJSaldoAwal = '';
-		$DJSaldoAkhir = '';
-		$DJResiko = '';
-		$DJLot = '';
-		$DJRasio = '';
-		$DJRugiSaldo = '';
-		$DJUntungSaldo = '';
-		$DJHargaKeluar = '';
-		$DJSebelum = '';
-		$DJSesudah = '';
-		$DJCatatanSebelum = '';
-		$DJCatatanSesudah = '';
-		$DJStatus = '1';
+		$BuatNo 		= new No();
+		$NoJurnal 		= $BuatNo->NoJurnal($id, $UserID);
+		$RencanaID 		= '';
+		$Pasar 			= '';
+		$SymbolID 		= '';
+		$Symbol 		= '';
+		$JangkaWaktuID 	= '';
+		$JangkaWaktu 	= '';
+		$RAksiID 		= '';
+		$RAksi 			= '';
+		$WKeluar 		= '';
+		$WMasuk 		= '';
+		$HargaMasuk 	= '';
+		$BatasRugi 		= '';
+		$AmbilUntung 	= '';
+		$RugiPoint 		= '';
+		$UntungPoint 	= '';
+		$SaldoAwal 		= '';
+		$SaldoAkhir 	= '';
+		$Resiko 		= '';
+		$Lot 			= '';
+		$Rasio 			= '';
+		$RugiSaldo 		= '';
+		$UntungSaldo 	= '';
+		$HargaKeluar 	= '';
+		$CatatanSebelum = '';
+		$CatatanSesudah = '';
+		$CaptureSebelum = '';
+		$CaptureSesudah = '';
+		$StatusID 		= '1';
 		
 	}
 	if ($modul == 'ubah_jurnal' || $modul == 'lihat_jurnal') {
-		$qjurnal = mysqli_query($koneksi,"	SELECT a.*, b.Pasar AS PasarNM, c.Symbol AS SymbolNM, c.Units AS SymbolUnits, c.Mask AS SymbolMask, d.JangkaWaktu AS JangkaWaktuNM, e.RencanaAksi AS AksiNM FROM jurnal a
-		LEFT JOIN pasar b ON a.PasarID = b.PasarID
-		LEFT JOIN symbol c ON a.SymbolID = c.SymbolID
-		LEFT JOIN jangkawaktu d ON a.JangkaWaktuID = d.JangkaWaktuID
-		LEFT JOIN rencana_aksi e ON a.AksiID = e.RencanaAksiID
-		WHERE a.JurnalID ='$id' AND a.UserID = '$UserID'");
-		while ($djurnal = mysqli_fetch_array($qjurnal,MYSQLI_ASSOC)) {
-			$NoJurnal = $djurnal['JurnalID'];
-			$DJRencanaID = $djurnal['RencanaID'];
-			$DJPasar = $djurnal['PasarNM'];
-			$DJPasarID = $djurnal['PasarID'];
-			$DJSymbol = $djurnal['SymbolNM'];
-			$DJSymbolID = $djurnal['SymbolID'];
-			$DJSymbolUnits = $djurnal['SymbolUnits'];
-			$DJSymbolMask = $djurnal['SymbolMask'];
-			$DJJangkaWaktu = $djurnal['JangkaWaktuNM'];
-			$DJJangkaWaktuID = $djurnal['JangkaWaktuID'];
-			$DJRAksi = $djurnal['AksiNM'];
-			$DJRAksiID = $djurnal['AksiID'];
-			if ($djurnal['WaktuMasuk'] == '0000-00-00 00:00:00') {
-				$DJWMasuk = '';
+		$Jurnal = new jurnal_data();
+		foreach ($Jurnal->jurnal($id,$UserID) as $row) {
+			$NoJurnal 		= $row['JurnalID'];
+			$RencanaID 		= $row['RencanaID'];
+			$Pasar 			= $row['Pasar'];
+			$SymbolID 		= $row['SymbolID'];
+			$Symbol 		= $row['Symbol'];
+			$SymbolUnits 	= $row['Units'];
+			$SymbolMask 	= $row['Mask'];
+			$JangkaWaktuID 	= $row['JangkaWaktuID'];
+			$JangkaWaktu 	= $row['JangkaWaktu'];
+			$RAksi			= $row['RencanaAksi'];
+			$RAksiID 		= $row['AksiID'];
+			if ($row['WaktuMasuk'] == '0000-00-00 00:00:00') {
+				$WMasuk 	= '';
 				}
 			else {
-				$DJWMasuk = $djurnal['WaktuMasuk'];
+				$WMasuk 	= $row['WaktuMasuk'];
 				}
-			$DJHargaMasuk = $djurnal['HargaMasuk'];
-			$DJBatasRugi = $djurnal['BatasRugi'];
-			$DJAmbilUntung = $djurnal['AmbilUntung'];
-			$DJRugiPoint = $djurnal['RugiPoint'];
-			$DJUntungPoint = $djurnal['UntungPoint'];
-			$DJSaldoAwal = $djurnal['SaldoAwal'];
-			$DJResiko = $djurnal['Resiko'];
-			$DJLot = $djurnal['Lot'];
-			if ($djurnal['WaktuKeluar'] == '0000-00-00 00:00:00') {
-				$DJWKeluar = '';
+			$HargaMasuk 	= $row['HargaMasuk'];
+			$BatasRugi 		= $row['BatasRugi'];
+			$AmbilUntung 	= $row['AmbilUntung'];
+			$RugiPoint 		= $row['RugiPoint'];
+			$UntungPoint 	= $row['UntungPoint'];
+			$SaldoAwal 		= $row['SaldoAwal'];
+			$Resiko 		= $row['Resiko'];
+			$Lot 			= $row['Lot'];
+			if ($row['WaktuKeluar'] == '0000-00-00 00:00:00') {
+				$WKeluar 	= '';
 				}
 			else {
-				$DJWKeluar = $djurnal['WaktuKeluar'];
+				$WKeluar 	= $row['WaktuKeluar'];
 				}
 			
-			$DJAKeluar = $djurnal['AlasanKeluar'];
-			$DJHargaKeluar = $djurnal['HargaKeluar'];
-			$DJRasio = $djurnal['Rasio'];
-			$DJRugiSaldo = $djurnal['Kerugian'];
-			$DJUntungSaldo = $djurnal['Keuntungan'];
-			$DJSaldoAkhir = $djurnal['SaldoAkhir'];
-			$DJSebelum = $djurnal['Sebelum'];
-			$DJSesudah = $djurnal['Sesudah'];
-			$DJCatatanSebelum = $djurnal['CatatanSebelum'];
-			$DJCatatanSesudah = $djurnal['CatatanSesudah'];
-			$DJStatus = $djurnal['StatusID'];
-			$DJTglBuat = $djurnal['TglBuat'];
+			$AKeluar 		= $row['AlasanKeluar'];
+			$HargaKeluar 	= $row['HargaKeluar'];
+			$Rasio 			= $row['Rasio'];
+			$RugiSaldo 		= $row['Kerugian'];
+			$UntungSaldo 	= $row['Keuntungan'];
+			$SaldoAkhir 	= $row['SaldoAkhir'];
+			$CatatanSebelum = $row['CatatanSebelum'];
+			$CatatanSesudah = $row['CatatanSesudah'];
+			$CaptureSebelum = $row['CaptureSebelum'];
+			$CaptureSesudah = $row['CaptureSesudah'];
+			$StatusID 		= $row['StatusID'];
+			$TglBuat 		= $row['TglBuat'];
 		}
-	} 
+	}
+	?>
+	<div class="row">
+		<!-- Form Hidden Value -->
+		<div class="col-md-12">
+			<div class="form-group row">
+				<div class="col-sm-9">
+					<div class="input-group">
+						<input type="hidden" class="form-control" id="ID" name="ID" value="<?php echo $id;?>">
+					</div>
+					<div class="input-group">
+						<input type="hidden" class="form-control" id="modul" name="modul" value="<?php echo $modul;?>">
+					</div>
+					<div class="input-group">
+						<input type="hidden" class="form-control" id="submodul" name="submodul" value="<?php echo $submodul;?>">
+					</div>
+					<div class="input-group">
+						<input type="hidden" class="form-control" id="UserID" name="UserID" value="<?php echo $UserID;?>">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
 	if ($modul == 'tambah_jurnal' || $modul == 'ubah_jurnal') {
 	?>
 	<div class="row">
@@ -104,9 +122,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">@</span>
 						</div>
-						<input type="hidden" id="modul" name="modul" value="<?php echo $modul;?>">
-						<input type="hidden" id="UserID" name="UserID" value="<?php echo $UserID;?>" readonly>
-						<input type="text" class="form-control" id="JurnalID" name="Jurnal" value="<?php echo $NoJurnal;?>" readonly>
+						<input type="text" class="form-control" id="JurnalID" name="JurnalID" value="<?php echo $NoJurnal;?>" readonly>
 					</div>
 				</div>
 			</div>
@@ -115,15 +131,14 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Dasar Transaksi</label>
 				<div class="col-sm-8">
-					<select id="RencanaID" name="Rencana" class="form-control" required >
+					<select id="RencanaID" name="RencanaID" class="form-control" required >
 						<option value="">Rencana No...</option>
 						<option value="Manual">Tanpa Rencana</option>
 						<?php
-							$qsrencana = mysqli_query($koneksi,"SELECT * FROM rencana WHERE UserID='$UserID' AND StatusID='1' ORDER BY RencanaID DESC");
-							while ($dsrencana = mysqli_fetch_array($qsrencana,MYSQLI_ASSOC)) {
-								$DSRencanaID	=	$dsrencana['RencanaID'];
+							$data_rencana = new rencana_data();
+							foreach ($data_rencana->rencana('',$UserID) as $row) {
 							?>
-							<option value="<?php echo $DSRencanaID;?>" <?php if ($DJRencanaID == $DSRencanaID) { echo "selected='selected'";} ?>><?php echo $DSRencanaID;?></option>
+							<option value="<?php echo $row['RencanaID'];?>" <?php if ($RencanaID == $row['RencanaID']) { echo "selected='selected'";} ?>><?php echo $row['RencanaID'];?></option>
 							<?php
 							}
 						?>
@@ -131,14 +146,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-6"> <!-- Pasar -->
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Pasar</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-center" id="Pasar" value="<?php echo $DJPasar;?>" readonly>
-					<input type="hidden" id="PasarID" name="Pasar" value="<?php echo $DJPasarID;?>">
+					<input type="text" class="form-control text-center" id="Pasar" value="<?php echo $Pasar;?>" data-container="body" data-toggle="popover" data-placement="top" data-content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa." readonly>
 				</div>
 			</div>
 		</div>
@@ -146,10 +158,10 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Symbol</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-center" id="Symbol" value="<?php echo $DJSymbol;?>" readonly>
-					<input type="hidden" id="SymbolID" name="Symbol" value="<?php echo $DJSymbolID;?>">
-					<input type="hidden" id="SymbolUnit" value="<?php echo $DJSymbolUnits;?>">
-					<input type="hidden" id="SymbolMask" value="<?php echo $DJSymbolMask;?>">
+					<input type="text" class="form-control text-center" id="Symbol" value="<?php echo $Symbol;?>" readonly>
+					<input type="hidden" id="SymbolID" name="SymbolID" value="<?php echo $SymbolID;?>">
+					<input type="hidden" id="SymbolUnit" value="<?php echo $SymbolUnits;?>">
+					<input type="hidden" id="SymbolMask" value="<?php echo $SymbolMask;?>">
 				</div>
 			</div>
 		</div>
@@ -157,8 +169,8 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Jangka Waktu</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-center" id="JangkaWaktu" value="<?php echo $DJJangkaWaktu;?>" readonly>
-					<input type="hidden" id="JangkaWaktuID" name="JangkaWaktu" value="<?php echo $DJJangkaWaktuID;?>" readonly>
+					<input type="text" class="form-control text-center" id="JangkaWaktu" value="<?php echo $JangkaWaktu;?>" readonly>
+					<input type="hidden" id="JangkaWaktuID" name="JangkaWaktuID" value="<?php echo $JangkaWaktuID;?>" readonly>
 				</div>
 			</div>
 		</div>
@@ -166,8 +178,8 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Transaksi</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-center" id="Aksi" value="<?php echo $DJRAksi;?>" readonly>
-					<input type="hidden" id="AksiID" name="Aksi" value="<?php echo $DJRAksiID;?>" readonly>
+					<input type="text" class="form-control text-center" id="Aksi" value="<?php echo $RAksi;?>" readonly>
+					<input type="hidden" id="AksiID" name="AksiID" value="<?php echo $RAksiID;?>" readonly>
 				</div>
 			</div>
 		</div>
@@ -176,7 +188,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Waktu Masuk</label>
 				<div class="col-sm-8">
 					<div class="input-group date" id="WaktuMasukID" data-target-input="nearest">
-						<input type="text" id="WaktuMasuk" name="WaktuMasuk" class="form-control datetimepicker-input" data-target="#WaktuMasukID" value="<?php echo $DJWMasuk;?>" <?php if ($modul == 'ubah_jurnal') { echo 'readonly';} else { echo 'required';} ?>>
+						<input type="text" id="WaktuMasuk" name="WaktuMasuk" class="form-control datetimepicker-input" data-target="#WaktuMasukID" value="<?php echo $WMasuk;?>" <?php if ($modul == 'ubah_jurnal') { echo 'readonly';} else { echo 'required';} ?>>
 						<div class="input-group-append" data-target="#WaktuMasukID" data-toggle="datetimepicker">
 							<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 						</div>
@@ -188,7 +200,7 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Harga</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-right" id="HargaMasukID" name="HargaMasuk" value="<?php echo $DJHargaMasuk;?>" readonly>
+					<input type="text" class="form-control text-right" id="HargaMasukID" name="HargaMasuk" value="<?php echo $HargaMasuk;?>" readonly>
 				</div>
 			</div>
 		</div>
@@ -196,7 +208,7 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Batas Rugi</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-right" id="BatasRugiID" name="BatasRugi" value="<?php echo $DJBatasRugi;?>" readonly>
+					<input type="text" class="form-control text-right" id="BatasRugiID" name="BatasRugi" value="<?php echo $BatasRugi;?>" readonly>
 				</div>
 			</div>
 		</div>
@@ -204,7 +216,7 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Ambil Untung</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-right" id="AmbilUntungID" name="AmbilUntung" value="<?php echo $DJAmbilUntung;?>" readonly>
+					<input type="text" class="form-control text-right" id="AmbilUntungID" name="AmbilUntung" value="<?php echo $AmbilUntung;?>" readonly>
 				</div>
 			</div>
 		</div>
@@ -216,7 +228,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Rugi : Untung</span>
 						</div>
-						<input type="text" class="form-control text-center" id="RasioID" name="Rasio" value="<?php echo $DJRasio;?>" readonly>
+						<input type="text" class="form-control text-center" id="RasioID" name="Rasio" value="<?php echo $Rasio;?>" readonly>
 					</div>
 				</div>
 			</div>
@@ -229,7 +241,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">Persentase</span>
 						</div>
-						<input type="text" class="form-control text-right" id="ResikoID" name="Resiko" value="<?php echo $DJResiko;?>" readonly>
+						<input type="text" class="form-control text-right" id="ResikoID" name="Resiko" value="<?php echo $Resiko;?>" readonly>
 						<div class="input-group-append">
 							<span class="input-group-text">(%)</span>
 						</div>
@@ -242,7 +254,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Jumlah Lot </label>
 				<div class="col-sm-8">
 					<div class="input-group">
-						<input type="text" class="form-control text-right" id="LotID" name="Lot" value="<?php echo $DJLot;?>" readonly>
+						<input type="text" class="form-control text-right" id="LotID" name="Lot" value="<?php echo $Lot;?>" readonly>
 						<div class="input-group-append">
 							<span class="input-group-text">Lot</span>
 						</div>
@@ -255,7 +267,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Waktu Keluar</label>
 				<div class="col-sm-8">
 					<div class="input-group date" id="WaktuKeluarID" data-target-input="nearest">
-						<input type="text" id="WaktuKeluar" name="WaktuKeluar" class="form-control datetimepicker-input" data-target="#WaktuKeluarID" value="<?php echo $DJWKeluar;?>" <?php if ($modul == 'tambah_jurnal') { echo 'readonly';} else { echo 'required';} ?>>
+						<input type="text" id="WaktuKeluar" name="WaktuKeluar" class="form-control datetimepicker-input" data-target="#WaktuKeluarID" value="<?php echo $WKeluar;?>" <?php if ($modul == 'tambah_jurnal') { echo 'readonly';} else { echo 'required';} ?>>
 						<div class="input-group-append" data-target="#WaktuKeluarID" data-toggle="datetimepicker">
 							<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 						</div>
@@ -269,10 +281,10 @@
 				<div class="col-sm-8">
 					<select id="AlasanKeluarID" name="AlasanKeluar" class="form-control" <?php if ($modul == 'tambah_jurnal') { echo 'readonly';} else { echo 'required';} ?>>
 						<option value=""></option>
-						<option value="Impas" <?php if ($modul == 'ubah_jurnal' && $DJAKeluar == 'Impas') { echo 'selected="selected"';}?>>Impas</option>
-						<option value="Rugi" <?php if ($modul == 'ubah_jurnal' && $DJAKeluar == 'Rugi') { echo 'selected="selected"';}?>>Rugi</option>
-						<option value="Untung" <?php if ($modul == 'ubah_jurnal' && $DJAKeluar == 'Untung') { echo 'selected="selected"';}?>>Untung</option>
-						<option value="Manual" <?php if ($modul == 'ubah_jurnal' && $DJAKeluar == 'Manual') { echo 'selected="selected"';}?>>Manual</option>
+						<option value="Impas" <?php if ($modul == 'ubah_jurnal' && $AKeluar == 'Impas') { echo 'selected="selected"';}?>>Impas</option>
+						<option value="Rugi" <?php if ($modul == 'ubah_jurnal' && $AKeluar == 'Rugi') { echo 'selected="selected"';}?>>Rugi</option>
+						<option value="Untung" <?php if ($modul == 'ubah_jurnal' && $AKeluar == 'Untung') { echo 'selected="selected"';}?>>Untung</option>
+						<option value="Manual" <?php if ($modul == 'ubah_jurnal' && $AKeluar == 'Manual') { echo 'selected="selected"';}?>>Manual</option>
 					</select>
 				</div>
 			</div>
@@ -281,7 +293,7 @@
 			<div class="form-group row">
 				<label class="col-form-label col-sm-4 text-sm-left">Harga Keluar</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control text-right" id="HargaKeluarID" name="HargaKeluar" value="<?php echo $DJHargaKeluar;?>" readonly>
+					<input type="text" class="form-control text-right" id="HargaKeluarID" name="HargaKeluar" value="<?php echo $HargaKeluar;?>" readonly>
 				</div>
 			</div>
 		</div>
@@ -290,7 +302,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Kerugian</label>
 				<div class="col-sm-8">
 					<div class="input-group">
-						<input type="text" class="form-control text-right" id="RugiPointID" name="RugiPoint" value="<?php echo $DJRugiPoint;?>" readonly>
+						<input type="text" class="form-control text-right" id="RugiPointID" name="RugiPoint" value="<?php echo $RugiPoint;?>" readonly>
 						<div class="input-group-append">
 							<span class="input-group-text">Point</span>
 						</div>
@@ -303,7 +315,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Keuntungan</label>
 				<div class="col-sm-8">
 					<div class="input-group">
-						<input type="text" class="form-control text-right" id="UntungPointID" name="UntungPoint" value="<?php echo $DJUntungPoint;?>" readonly>
+						<input type="text" class="form-control text-right" id="UntungPointID" name="UntungPoint" value="<?php echo $UntungPoint;?>" readonly>
 						<div class="input-group-append">
 							<span class="input-group-text">Point</span>
 						</div>
@@ -319,7 +331,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">($)</span>
 						</div> 
-						<input type="text" class="form-control text-right" id="RugiSaldoID" name="RugiSaldo" value="<?php echo $DJRugiSaldo;?>" readonly>
+						<input type="text" class="form-control text-right" id="RugiSaldoID" name="RugiSaldo" value="<?php echo $RugiSaldo;?>" readonly>
 					</div>
 				</div>
 			</div>
@@ -332,7 +344,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">($)</span>
 						</div>
-						<input type="text" class="form-control text-right" id="UntungSaldoID" name="UntungSaldo" value="<?php echo $DJUntungSaldo;?>" readonly>
+						<input type="text" class="form-control text-right" id="UntungSaldoID" name="UntungSaldo" value="<?php echo $UntungSaldo;?>" readonly>
 					</div>
 				</div>
 			</div>
@@ -345,7 +357,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">($)</span>
 						</div>
-						<input type="text" class="form-control text-right" id="SaldoAwalID" name="SaldoAwal" value="<?php echo $DJSaldoAwal;?>" readonly>
+						<input type="text" class="form-control text-right" id="SaldoAwalID" name="SaldoAwal" value="<?php echo $SaldoAwal;?>" readonly>
 					</div>
 				</div>
 			</div>
@@ -358,85 +370,63 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">($)</span>
 						</div>
-						<input type="text" class="form-control text-right" id="SaldoAkhirID" name="SaldoAkhir" value="<?php echo $DJSaldoAkhir;?>" readonly>
+						<input type="text" class="form-control text-right" id="SaldoAkhirID" name="SaldoAkhir" value="<?php echo $SaldoAkhir;?>" readonly>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="Attribute" class="row" <?php //if ($modul == 'ubah_analisa') { echo 'style="display:flex"';} else { echo 'style="display:none"';}?>>
+	<div class="row">
 		<div class="col-md-6">
-			<div class="col-md-12 px-0">
-				<div class="mb-2">
-					<strong>Catatan Sebelum:</strong>
-				</div>
-				<div class="input-group col-sm-12 mb-2 px-0">
-					<textarea class="form-control" rows="4" placeholder="" id="CatatanSebelumID" name="CatatanSebelum" <?php if ($modul == 'ubah_jurnal') { echo 'readonly';} else { echo 'required';} ?>><?php echo $DJCatatanSebelum;?></textarea>
-				</div>
+			<div class="form-group">
+				<label for="CatatanSebelumID">Catatan</label>
+				<textarea id="CatatanSebelumID" name="CatatanSebelum" class="form-control"><?php echo $CatatanSebelum;?></textarea>
 			</div>
-			<div class="col-md-12 mb-2 px-0">
+			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<button type="button" class="btn btn-outline-primary">Dok. Sebelum</button>
+						<button type="button" class="btn btn-outline-primary">Capture</button>
 					</div>
-					<input type="text" class="form-control" id="SebelumID" name="Sebelum" value="<?php echo $DJSebelum;?>" <?php if ($modul == 'ubah_jurnal') { echo 'readonly';} else { echo 'required';} ?>>
+					<input type="text" class="form-control" id="CaptureSebelumID" name="CaptureSebelum" value="<?php echo $CaptureSebelum;?>">
 				</div>
 			</div>
 		</div>
 		<div class="col-md-6">
-			<div class="col-md-12 px-0">
-				<div class="mb-2">
-					<strong>Catatan Sesudah:</strong>
-				</div>
-				<div class="input-group col-sm-12 mb-2 px-0">
-					<textarea class="form-control" rows="4" placeholder="" id="CatatanSesudahID" name="CatatanSesudah" <?php if ($modul == 'tambah_jurnal') { echo 'readonly';} else { echo 'required';} ?>><?php echo $DJCatatanSesudah;?></textarea>
-				</div>
+			<div class="form-group">
+				<label for="CatatanSesudahID">Catatan</label>
+				<textarea id="CatatanSesudahID" name="CatatanSesudah" class="form-control"><?php echo $CatatanSesudah;?></textarea>
 			</div>
-			<div class="col-md-12 mb-2 px-0">
+			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<button type="button" class="btn btn-outline-primary">Dok. Sesudah</button>
+						<button type="button" class="btn btn-outline-primary">Capture</button>
 					</div>
-					<input type="text" class="form-control" id="SesudahID" name="Sesudah" value="<?php echo $DJSesudah;?>" <?php if ($modul == 'tambah_jurnal') { echo 'readonly';} else { echo 'required';} ?>>
+					<input type="text" class="form-control" id="CaptureSesudahID" name="CaptureSesudah" value="<?php echo $CaptureSesudah;?>">
 				</div>
 			</div>
 		</div>
 		<div class="col-md-12 text-center">
 			<label class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" id="Status" name="Status" value="1" <?php if ($DJStatus == '1') { echo 'checked="checked"';}?>>
+				<input class="form-check-input" type="radio" id="StatusID" name="StatusID" value="1"
+					<?php if ($StatusID == '1') { echo 'checked="checked"';}?>>
 				<span class="form-check-label">
 					Terbuka
 				</span>
 			</label>
 			<label class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" id="Status" name="Status" value="2" <?php if ($DJStatus == '2') { echo 'checked="checked"';}?>>
+				<input class="form-check-input" type="radio" id="StatusID" name="StatusID" value="2"
+					<?php if ($StatusID == '2') { echo 'checked="checked"';}?>>
 				<span class="form-check-label">
 					Ditutup
 				</span>
 			</label>
 		</div>
 	</div>
+	
 	<?php
 	}
 	if ($modul == 'hapus_jurnal') {
 	?>
-	<div class="row">
-		<div class="col-md-12"> <!-- Data -->
-			<div class="form-group row">
-				<div class="col-sm-9">
-					<div class="input-group">
-						<input type="hidden" id="modul" name="modul" value="<?php echo $modul;?>">
-					</div>
-					<div class="input-group">
-						<input type="hidden" id="UserID" name="UserID" value="<?php echo $UserID;?>">
-					</div>
-					<div class="input-group">
-						<input type="hidden" id="JurnalID" name="JurnalID" value="<?php echo $id;?>">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-md-12 text-center"> 
 			Hapus Jurnal dengan ID : <?php echo $id;?> ?
@@ -460,7 +450,7 @@
 					</div>
 					<div class="col-md-6 text-md-right">
 						<div class="text-muted">Tanggal Buat</div>
-						<strong><?php echo $DJTglBuat;?></strong>
+						<strong><?php echo $TglBuat;?></strong>
 					</div>
 				</div>
 				
@@ -476,86 +466,86 @@
 					<tbody>
 						<tr>
 							<td>Pasar</td>
-							<td class="text-right"><?php echo $DJPasar;?></td>
+							<td class="text-right"><?php echo $Pasar;?></td>
 						</tr>
 						<tr>
 							<td>Symbol</td>
-							<td class="text-right"><?php echo $DJSymbol;?></td>
+							<td class="text-right"><?php echo $Symbol;?></td>
 						</tr>
 						<tr>
 							<td>Jangka Waktu</td>
-							<td class="text-right"><?php echo $DJJangkaWaktu;?></td>
+							<td class="text-right"><?php echo $JangkaWaktu;?></td>
 						</tr>
 						<tr>
 							<td><strong>Aksi</strong></td>
-							<td class="text-right"><strong><?php echo $DJRAksi;?></strong></td>
+							<td class="text-right"><strong><?php echo $RAksi;?></strong></td>
 						</tr>
 						<tr>
 							<td><strong>Dasar Rencana</strong></td>
-							<td class="text-right"><strong><?php echo $DJRencanaID;?></strong></td>
+							<td class="text-right"><strong><?php echo $RencanaID;?></strong></td>
 						</tr>
 					</tbody>
 				</table>
 				<table class="table table-striped table-sm">
 					<thead>
 						<tr>
-							<th colspan="3" class="text-center">Detail <?php echo $DJRAksi;?></th>
+							<th colspan="3" class="text-center">Detail <?php echo $RAksi;?></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td class="text-sm">Saldo</td>
-							<td colspan="2" class="text-right text-sm">$ <?php echo $DJSaldoAwal;?></td>
+							<td colspan="2" class="text-right text-sm">$ <?php echo $SaldoAwal;?></td>
 						</tr>
 						<tr>
 							<td class="text-sm">Resiko</td>
-							<td colspan="2" class="text-right text-sm"><?php echo $DJResiko;?>%</td>
+							<td colspan="2" class="text-right text-sm"><?php echo $Resiko;?>%</td>
 						</tr>
 						<tr>
 							<td class="text-sm">Jumlah Lot</td>
-							<td colspan="2" class="text-right text-sm"><strong><?php echo $DJLot;?></strong></td>
+							<td colspan="2" class="text-right text-sm"><strong><?php echo $Lot;?></strong></td>
 						</tr>
 						<tr>
 							<td class="text-sm">Waktu Masuk</td>
-							<td colspan="2" class="text-right text-sm"><?php echo $DJWMasuk;?></td>
+							<td colspan="2" class="text-right text-sm"><?php echo $WMasuk;?></td>
 						</tr>
 						<tr>
 							<td class="text-sm">Waktu Keluar</td>
-							<td colspan="2" class="text-right text-sm"><?php echo $DJWKeluar;?></td>
+							<td colspan="2" class="text-right text-sm"><?php echo $WKeluar;?></td>
 						</tr>
 						<tr>
 							<td class="text-sm">Harga Masuk</td>
-							<td colspan="2" class="text-right text-sm"><?php echo $DJHargaMasuk;?></td>
+							<td colspan="2" class="text-right text-sm"><?php echo $HargaMasuk;?></td>
 						</tr>
 						<tr>
 							<td class="text-sm">Harga Keluar</td>
-							<td colspan="2" class="text-right text-sm"><?php echo $DJHargaKeluar;?></td>
+							<td colspan="2" class="text-right text-sm"><?php echo $HargaKeluar;?></td>
 						</tr>
 						<tr>
 							<td class="text-sm">Alasan Keluar</td>
 							<td colspan="2" class="text-right text-sm">
 								<?php 
-									if ($DJAKeluar == 'Impas') {
-									echo '<span class="badge badge-warning">'.$DJAKeluar.'</span>';
+									if ($AKeluar == 'Impas') {
+									echo '<span class="badge badge-warning">'.$AKeluar.'</span>';
 									}
-									else if ($DJAKeluar == 'Rugi') {
-									echo '<span class="badge badge-danger">'.$DJAKeluar.'</span>';
+									else if ($AKeluar == 'Rugi') {
+									echo '<span class="badge badge-danger">'.$AKeluar.'</span>';
 									}
-									else if ($DJAKeluar == 'Untung') {
-									echo '<span class="badge badge-success">'.$DJAKeluar.'</span>';
+									else if ($AKeluar == 'Untung') {
+									echo '<span class="badge badge-success">'.$AKeluar.'</span>';
 									}
 								?>
 							</td>
 						</tr>
 						<tr>
 							<td class="text-sm">Kerugian</td>
-							<td class="text-right text-sm"><?php echo $DJRugiPoint;?> Point</td>
-							<td class="text-right text-sm">$ <?php echo $DJRugiSaldo;?></td>
+							<td class="text-right text-sm"><?php echo $RugiPoint;?> Point</td>
+							<td class="text-right text-sm">$ <?php echo $RugiSaldo;?></td>
 						</tr>
 						<tr>
 							<td class="text-sm">Keuntungan</td>
-							<td class="text-right text-sm"><?php echo $DJUntungPoint;?> Point</td>
-							<td class="text-right text-sm">$ <?php echo $DJUntungSaldo;?></td>
+							<td class="text-right text-sm"><?php echo $UntungPoint;?> Point</td>
+							<td class="text-right text-sm">$ <?php echo $UntungSaldo;?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -568,7 +558,7 @@
 					<strong>Catatan Sebelum:</strong>
 				</div>
 				<div class="py-2 py-md-3 border">
-					<?php echo $DJCatatanSebelum;?>
+					<?php echo $CatatanSebelum;?>
 				</div>
 			</div>
 			<div class="col-md-12">
@@ -576,7 +566,7 @@
 					<strong>Gambar Sebelum</strong>
 				</div>
 				<div class="py-2 py-md-3">
-					<a href="<?php echo $DJSebelum;?>" target="_blank"><img src="<?php echo $DJSebelum;?>" style="height: 100%; width: 100%"></a>
+					<a href="<?php echo $Sebelum;?>" target="_blank"><img src="<?php echo $Sebelum;?>" style="height: 100%; width: 100%"></a>
 				</div>
 			</div>
 		</div>
@@ -586,7 +576,7 @@
 					<strong>Catatan Sesudah:</strong>
 				</div>
 				<div class="py-2 py-md-3 border">
-					<?php echo $DJCatatanSesudah;?>
+					<?php echo $CatatanSesudah;?>
 				</div>
 			</div>
 			<div class="col-md-12">
@@ -594,7 +584,7 @@
 					<strong>Gambar Sesudah</strong>
 				</div>
 				<div class="py-2 py-md-3">
-					<a href="<?php echo $DJSesudah;?>" target="_blank"><img src="<?php echo $DJSesudah;?>" style="height: 100%; width: 100%"></a>
+					<a href="<?php echo $Sesudah;?>" target="_blank"><img src="<?php echo $Sesudah;?>" style="height: 100%; width: 100%"></a>
 				</div>
 			</div>
 		</div>
@@ -622,10 +612,20 @@
 	<?php 
 	}
 ?>
-</form>
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		$('#CatatanSebelumID, #CatatanSesudahID').summernote({
+        placeholder: '',
+        tabsize: 2,
+        height: 150,
+        toolbar: [
+            ['font', ['bold', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ]
+		});
+
 		SymbolMask = $('#SymbolMask').val();
 		$('#HargaMasukID, #HargaKeluarID').mask(SymbolMask);
 		
@@ -678,8 +678,7 @@
 			$('#UntungSaldoID').trigger('contentchanged');
 			$('#SaldoAkhirID').trigger('contentchanged');
 		});
-		
-		
+			
 		$('#HargaID, #BatasRugiID, #AmbilUntungID, #HargaKeluarID').keyup(function() {
 			$('#RugiPointID').trigger('contentchanged');
 			$('#UntungPointID').trigger('contentchanged');
@@ -688,27 +687,24 @@
 			$('#SaldoAkhirID').trigger('contentchanged');
 		});
 		
-		
-		
 		$('#RencanaID').on('contentchanged',function() {
 			var RencanaID 	= $('#RencanaID').val();
 			var UserID 		= $('#UserID').val();
 			var getData 	= 'rencanaInfo';
 			$.ajax({
 				type:'POST',
-				url:'../page/jurnal/jurnal.data.php',
+				url:'../modules/main/jurnal/jurnal.process.php',
 				data:{'RencanaID' :RencanaID, 'UserID':UserID, 'getData': getData},
 				dataType: 'json',
 				success:function(data){
 					var RencanaAksi = data[0].RencanaAksiID;
-					$('#Pasar, #PasarID, #Symbol, #SymbolID, #SymbolUnit, #JangkaWaktu, #JangkaWaktuID, #Aksi, #AksiID, #HargaMasukID, #BatasRugiID, #AmbilUntungID, #SaldoAwalID, #ResikoID, #LotID, #HargaKeluarID, #RugiPointID, #UntungPointID, #RugiSaldoID, #UntungSaldoID, #RasioID').val('');
-					$('#Pasar').val(data[0].PasarNM);
-					$('#PasarID').val(data[0].PasarID);
-					$('#Symbol').val(data[0].SymbolNM);
+					$('#Pasar, #Symbol, #SymbolID, #SymbolUnit, #JangkaWaktu, #JangkaWaktuID, #Aksi, #AksiID, #HargaMasukID, #BatasRugiID, #AmbilUntungID, #SaldoAwalID, #ResikoID, #LotID, #HargaKeluarID, #RugiPointID, #UntungPointID, #RugiSaldoID, #UntungSaldoID, #RasioID').val('');
+					$('#Pasar').val(data[0].Pasar);
 					$('#SymbolID').val(data[0].SymbolID);
+					$('#Symbol').val(data[0].Symbol);
 					$('#SymbolUnit').val(data[0].Units);
-					$('#JangkaWaktu').val(data[0].JangkaWaktuNM);
 					$('#JangkaWaktuID').val(data[0].JangkaWaktuID);
+					$('#JangkaWaktu').val(data[0].JangkaWaktu);
 					if (RencanaAksi == '1' || RencanaAksi == '3' || RencanaAksi == '4'){
 						$('#Aksi').val('Buy');
 						$('#AksiID').val('1');	
@@ -931,10 +927,10 @@
 			var JurnalID = $('#JurnalID').val();
 			$.ajax({
 				type:'POST',
-				url:'../page/jurnal/jurnal.process.php',
-				data:{'JurnalID':JurnalID, 'UserID': UserID, 'modul': modul},
+				url:'../modules/main/jurnal/jurnal.process.php',
+				data:{'ID':JurnalID, 'UserID': UserID, 'modul': modul},
 				success:function(hasil){
-					if (hasil=='sukses_ubah_data' || hasil=='sukses_ubah_data ' || hasil=='sukses_ubah_data	') {
+					if (hasil=='sukses	') {
 						location.href = "/index.php?page=jurnal"
 						} else {
 						$('#modal-data').html(hasil);
@@ -942,7 +938,7 @@
 				}
 			})
 		});
-		$("#myform").validate({
+		$("#newForm").validate({
 			errorElement: 'div',
 			errorClass: 'help-block',
 			focusInvalid: true,
@@ -960,12 +956,12 @@
 				var formData  = new FormData(form);
 				$.ajax({
 					type : 'POST',
-					url : '../page/jurnal/jurnal.process.php',
+					url : '../modules/main/jurnal/jurnal.process.php',
 					processData: false,
 					contentType: false,
 					data: formData,
 					success : function(hasil){
-						if (hasil=='sukses_ubah_data' || hasil=='sukses_ubah_data ' || hasil=='sukses_ubah_data	') {
+						if (hasil=='sukses	') {
 							location.href = "/index.php?page=jurnal"
 							} else {
 							$('#modal-data').html(hasil);

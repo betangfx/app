@@ -12,61 +12,63 @@ $(document).ready(function() {
 
     table = $('#list-rencana').DataTable({
         retrieve: true,
-        paging: false
-    });
-    $("#list-jurnal").DataTable({
         responsive: true,
         "pagingType": "simple"
     });
-    $('#list-rangkaian').DataTable({
+    table = $("#list-jurnal").DataTable({
+        retrieve: true,
+        responsive: true,
+        "pagingType": "simple"
+    });
+    table = $('#list-rangkaian').DataTable({
         columnDefs: [{
             targets: -1,
             className: 'dt-body-center'
         }]
     });
-    $('#list-struktur').DataTable({
+    table = $('#list-struktur').DataTable({
         columnDefs: [{
             targets: -1,
             className: 'dt-body-center'
         }]
     });
-    $('#list-pola').DataTable({
+    table = $('#list-pola').DataTable({
         columnDefs: [{
             targets: -1,
             className: 'dt-body-center'
         }]
     });
-    $('#list-posisi').DataTable({
+    table = $('#list-posisi').DataTable({
         columnDefs: [{
             targets: -1,
             className: 'dt-body-center'
         }]
     });
-    $('#list-tipe').DataTable({
+    table = $('#list-tipe').DataTable({
         columnDefs: [{
             targets: -1,
             className: 'dt-body-center'
         }]
     });
-    $('#list-derajat').DataTable({
+    table = $('#list-derajat').DataTable({
         columnDefs: [{
             targets: -1,
             className: 'dt-body-center'
         }]
     });
-    $('#list-aturan').DataTable({
+    table = $('#list-aturan').DataTable({
         columnDefs: [{
             targets: -1,
             className: 'dt-body-center'
         }]
     });
-    $('#list-joinaturan').DataTable({
+    table = $('#list-joinaturan').DataTable({
         columnDefs: [{
             targets: -1,
             className: 'dt-body-center'
         }]
     });
-    $('#list_ringkasan_akun, #list_info_akun').DataTable({
+    table = $('#list_ringkasan_akun, #list_info_akun').DataTable({
         searching: false,
         "paging": false,
         "info": false,
@@ -77,7 +79,7 @@ $(document).ready(function() {
             className: 'dt-body-center'
         }]
     });
-    $("#list_tambah_dana, #list_tarik_dana").DataTable({
+    table = $("#list_tambah_dana, #list_tarik_dana").DataTable({
         responsive: true,
         "pagingType": "simple"
     });

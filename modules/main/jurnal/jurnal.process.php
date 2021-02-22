@@ -1,61 +1,56 @@
 <?php
-	include ($_SERVER['DOCUMENT_ROOT'] . '/includes/dbold.php');
-	$modul 			= isset($_POST['modul']) ? $_POST['modul'] : NULL;
-	$UserID			= isset($_POST['UserID']) ? $_POST['UserID']: NULL;
-	$JurnalID		= isset($_POST['JurnalID']) ? $_POST['JurnalID']: NULL;
-	if ($modul == 'tambah_jurnal' || $modul == 'ubah_jurnal') {
-		$Jurnal 		= $_POST['Jurnal'];
-		$Rencana 		= $_POST['Rencana'];
-		$Pasar 			= $_POST['Pasar'];
-		$Symbol 		= $_POST['Symbol'];
-		$JangkaWaktu 	= $_POST['JangkaWaktu'];
-		$Aksi 			= $_POST['Aksi'];
-		$WaktuMasuk 	= $_POST['WaktuMasuk'];
-		$HargaMasuk		= $_POST['HargaMasuk'];
-		$BatasRugi 		= $_POST['BatasRugi'];
-		$AmbilUntung 	= $_POST['AmbilUntung'];
-		$SaldoAwal 		= $_POST['SaldoAwal'];
-		$Resiko 		= $_POST['Resiko'];
-		$Lot 			= $_POST['Lot'];
-		$WaktuKeluar 	= $_POST['WaktuKeluar'];
-		$AlasanKeluar 	= $_POST['AlasanKeluar'];
-		$HargaKeluar 	= $_POST['HargaKeluar'];
-		$RugiPoint 		= $_POST['RugiPoint'];
-		$UntungPoint 	= $_POST['UntungPoint'];
-		$RugiSaldo 		= $_POST['RugiSaldo'];
-		$UntungSaldo 	= $_POST['UntungSaldo'];
-		$Rasio 			= $_POST['Rasio'];
-		$SaldoAkhir 	= $_POST['SaldoAkhir'];
-		$CatatanSebelum = $_POST['CatatanSebelum'];
-		$Sebelum 		= $_POST['Sebelum'];
-		$CatatanSesudah = $_POST['CatatanSesudah'];
-		$Sesudah		= $_POST['Sesudah'];
-		$Status 		= $_POST['Status'];
-		
-		if ($WaktuKeluar == '') {
-			$WaktuKeluar = null;
-			}
-		
-		$query 		=	"
-		UPDATE jurnal SET 	RencanaID='$Rencana', PasarID='$Pasar', SymbolID='$Symbol', JangkaWaktuID='$JangkaWaktu', AksiID='$Aksi', WaktuMasuk='$WaktuMasuk',
-							HargaMasuk='$HargaMasuk', BatasRugi='$BatasRugi', AmbilUntung='$AmbilUntung', SaldoAwal='$SaldoAwal', Resiko='$Resiko', Lot='$Lot', WaktuKeluar='$WaktuKeluar', AlasanKeluar='$AlasanKeluar',
-							HargaKeluar='$HargaKeluar', RugiPoint='$RugiPoint', UntungPoint='$UntungPoint', Kerugian='$RugiSaldo', Keuntungan='$UntungSaldo', Rasio='$Rasio', SaldoAkhir='$SaldoAkhir',
-							CatatanSebelum='$CatatanSebelum', CatatanSesudah='$CatatanSesudah', Sebelum='$Sebelum', Sesudah='$Sesudah', StatusID='$Status'
-		WHERE JurnalID='$Jurnal' AND UserID='$UserID'";
-		$insert		= mysqli_query($koneksi, $query);
-		if($insert) {
-			echo 'sukses_ubah_data';
-			} else {
-			echo 'gagal_insert_data';
-		}
+	include ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+	$id				= isset($_POST['ID']) 				? 	$_POST['ID'] 			: NULL;
+	$AnalisaID 		= isset($_POST['AnalisaID']) 		? 	$_POST['AnalisaID'] 	: NULL;
+	$modul 			= isset($_POST['modul']) 			? 	$_POST['modul'] 		: NULL;
+	$submodul		= isset($_POST['submodul']) 		? 	$_POST['submodul']		: NULL;
+	$UserID			= isset($_POST['UserID']) 			? 	$_POST['UserID'] 		: NULL;
+	$JurnalID		= isset($_POST['JurnalID'])			?	$_POST['JurnalID']		:	NULL;
+	$RencanaID		= isset($_POST['RencanaID'])		?	$_POST['RencanaID']		:	NULL;
+	$SymbolID		= isset($_POST['SymbolID'])			?	$_POST['SymbolID']		:	NULL;
+	$JangkaWaktuID	= isset($_POST['JangkaWaktuID'])	?	$_POST['JangkaWaktuID']	:	NULL;
+	$AksiID			= isset($_POST['AksiID'])			?	$_POST['AksiID']		:	NULL;
+	$WaktuMasuk		= isset($_POST['WaktuMasuk'])		?	$_POST['WaktuMasuk']	:	NULL;
+	$HargaMasuk		= isset($_POST['HargaMasuk'])		?	$_POST['HargaMasuk']	:	NULL;
+	$BatasRugi		= isset($_POST['BatasRugi'])		?	$_POST['BatasRugi']		:	NULL;
+	$AmbilUntung	= isset($_POST['AmbilUntung'])		?	$_POST['AmbilUntung']	:	NULL;
+	$Rasio			= isset($_POST['Rasio'])			?	$_POST['Rasio']			:	NULL;
+	$Resiko			= isset($_POST['Resiko'])			?	$_POST['Resiko']		:	NULL;
+	$Lot			= isset($_POST['Lot'])				?	$_POST['Lot']			:	NULL;
+	$WaktuKeluar	= isset($_POST['WaktuKeluar'])		?	$_POST['WaktuKeluar']	:	NULL;
+	$AlasanKeluar	= isset($_POST['AlasanKeluar'])		?	$_POST['AlasanKeluar']	:	NULL;
+	$HargaKeluar	= isset($_POST['HargaKeluar'])		?	$_POST['HargaKeluar']	:	NULL;
+	$RugiPoint		= isset($_POST['RugiPoint'])		?	$_POST['RugiPoint']		:	NULL;
+	$UntungPoint	= isset($_POST['UntungPoint'])		?	$_POST['UntungPoint']	:	NULL;
+	$Kerugian		= isset($_POST['RugiSaldo'])		?	$_POST['RugiSaldo']		:	NULL;
+	$Keuntungan		= isset($_POST['UntungSaldo'])		?	$_POST['UntungSaldo']	:	NULL;
+	$SaldoAwal		= isset($_POST['SaldoAwal'])		?	$_POST['SaldoAwal']		:	NULL;
+	$SaldoAkhir		= isset($_POST['SaldoAkhir'])		?	$_POST['SaldoAkhir']	:	NULL;
+	$CatatanSebelum = isset($_POST['CatatanSebelum'])	? 	$_POST['CatatanSebelum']: NULL;
+	$CaptureSebelum = isset($_POST['CaptureSebelum'])	? 	$_POST['CaptureSebelum']: NULL;
+	$CatatanSesudah = isset($_POST['CatatanSesudah'])	? 	$_POST['CatatanSesudah']: NULL;
+	$CaptureSesudah = isset($_POST['CaptureSesudah'])	? 	$_POST['CaptureSesudah']: NULL;
+	$StatusID 		= isset($_POST['StatusID'])			? 	$_POST['StatusID'] 		: NULL;
+	$getData		= isset($_POST['getData']) 			? 	$_POST['getData'] 		: NULL;
+
+	if ($getData == 'rencanaInfo') {
+		$DetailRID = new rencana_data();
+		$result = $DetailRID->rencana($RencanaID, $UserID);
+		echo json_encode($result);
+	}
+	if ($modul == 'tambah_jurnal') {
+		$Aksi = new aksi_jurnal();
+		$result = $Aksi->tambah($RencanaID, $SymbolID, $JangkaWaktuID, $AksiID, $WaktuMasuk, $HargaMasuk, $BatasRugi, $AmbilUntung, $SaldoAwal, $Resiko, $Lot, $WaktuKeluar, $AlasanKeluar, $HargaKeluar, $RugiPoint, $UntungPoint, $Kerugian, $Keuntungan, $Rasio, $SaldoAkhir, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $StatusID, $JurnalID, $UserID);
+		echo $result;
+	}
+	if ($modul == 'ubah_jurnal') {
+		$Aksi = new aksi_jurnal();
+		$result = $Aksi->ubah($RencanaID, $SymbolID, $JangkaWaktuID, $AksiID, $WaktuMasuk, $HargaMasuk, $BatasRugi, $AmbilUntung, $SaldoAwal, $Resiko, $Lot, $WaktuKeluar, $AlasanKeluar, $HargaKeluar, $RugiPoint, $UntungPoint, $Kerugian, $Keuntungan, $Rasio, $SaldoAkhir, $CatatanSebelum, $CatatanSesudah, $CaptureSebelum, $CaptureSesudah, $StatusID, $JurnalID, $UserID);
+		echo $result;
 	}
 	if ($modul == 'hapus_jurnal') {
-		$query 		=	"DELETE FROM jurnal WHERE JurnalID='$JurnalID' AND UserID='$UserID'";
-		$delete		= mysqli_query($koneksi, $query);
-		if($delete) {
-			echo 'sukses_ubah_data';
-			} else {
-			echo 'gagal_delete_data';
-		}
+		$Aksi = new aksi_jurnal();
+		$result = $Aksi->hapus($id, $UserID);
+		echo $result;
 	}
 ?>	

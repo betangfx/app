@@ -1,8 +1,7 @@
 <?php
 	class auth {
 		
-		function login($Username, $password)
-		{
+		function login($Username, $password) {
 			$this->db = new database();
 			$conn = $this->db->koneksi;
 			$hasil = array();
@@ -14,8 +13,7 @@
 			return $hasil;
 		}	
 		
-		function register($Nama, $Email, $Username, $Password, $NoTelp)
-		{
+		function register($Nama, $Email, $Username, $Password, $NoTelp) {
 			$this->db = new database();
 			$conn = $this->db->koneksi;
 			$sql 	= "SELECT * FROM user WHERE Username='$Username'"; 
@@ -171,6 +169,34 @@
 				return $new_id;
 			} else {
 				echo 'gagal tambah rencanaid';
+			}
+		}
+
+		function NoJurnal($req, $UserID) {
+			$this->db = new database();
+			$conn = $this->db->koneksi;
+			// Check No
+			$today 		=	date('Y-m-d');
+			$sql 	= "SELECT MAX(JurnalID) AS JurnalID FROM jurnal WHERE TglBuat LIKE '$today%' AND UserBuat = '$UserID'"; 
+			$query 	= 	mysqli_query($conn,$sql);
+			while($result = mysqli_fetch_array($query)){
+				$JurnalID = $result['JurnalID'];
+			}
+			//Buat No
+			$SubStrNo		= substr($JurnalID, 7, 2);
+			$NoUrutJurnal 	= (int)$SubStrNo;
+			$NoUrutJurnal++;
+			$pref 			= 'J';
+			$day			=	date('ymd');
+			$new_id			=	$pref.$day.sprintf('%02s', $NoUrutJurnal);
+			
+			//Masukan ke DB
+			$sql 	= "INSERT INTO jurnal (JurnalID, UserBuat) VALUES ('$new_id', '$UserID')";
+			$result		= 	mysqli_query($conn, $sql);
+			if($result) {
+				return $new_id;
+			} else {
+				echo 'gagal tambah jurnalid';
 			}
 		}
 	}
