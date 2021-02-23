@@ -42,7 +42,7 @@
 			$result = $DetailAID->analisa_snr($AnalisaID, $UserID);
 		} else if ($StringAID == 'EWP' ) {
 			$DetailAID = new analisa_data();
-			$result = $DetailAID->analisa_snr($AnalisaID, $UserID);
+			$result = $DetailAID->analisa_elliott($AnalisaID, $UserID);
 		}
 		echo json_encode($result);
 	}

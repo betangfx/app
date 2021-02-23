@@ -118,7 +118,7 @@
 				<label class="col-form-label col-sm-4 text-sm-left">Dasar Rencana</label>
 				<div class="col-sm-8">
 					<select id="AnalisaID" name="AnalisaID" class="form-control select2" data-toggle="select2" required >
-						<option value="">Analisa No...</option>
+						<optgroup><option value="">Analisa No...</option></optgroup>
 						<optgroup label="Analisa Sederhana">
 							<?php 
 								$data_simple = new rencana_data();
