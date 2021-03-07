@@ -32,7 +32,7 @@
         /* Warna Line */
         --Kontak-WA-uname: "6282237540250";
         /* Nomor WhatsApp */
-        --Kontak-WA-text: "Hallo admin,%20mohon%20aktivasi%20*Username: *%20";
+        --Kontak-WA-text: "Hallo admin,%20mohon%20aktivasi%20Username:*username*%20";
         /* Pesan WhatsApp */
         --Kontak-Tele-uname: "KarismaTM";
         /* Username Telegram */
@@ -174,7 +174,8 @@
                             <div class="card-body">
                                 <div class="col-12 text-center">
                                     Terima kasih telah mendaftar,<br />
-                                    <p><strong>Untuk aktivasi bisa hubungi admin di Whatsapp / Telegram
+                                    <p>Akun trial anda telah aktif dan dapat digunakan</p>
+                                    <p><strong>Untuk aktivasi akun full bisa hubungi admin di Whatsapp / Telegram
                                             Berikut:</strong>
                                     </p>
                                 </div>
